@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mt. Diablo Math Quest 2</title>
+<title>Diablo Math</title>
 <style>
 :root{
   --bg:#f4f6fb; --card:#fff; --ink:#18212f; --muted:#6b7280; --line:#e6e9f1;
@@ -17,6 +17,9 @@ button,input,select{font:inherit}
 button{cursor:pointer}
 .wrap{max-width:1120px;margin:auto;padding:18px}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:center;gap:13px}.brandWords{min-width:0}
+.brandLogo{width:62px;height:62px;flex:0 0 62px;border-radius:19px;background:linear-gradient(145deg,#4737cf,#8f7cff);color:white;display:grid;place-items:center;position:relative;box-shadow:0 9px 20px rgba(78,62,198,.28),inset 0 0 0 3px rgba(255,255,255,.22);font-weight:950;font-size:23px;letter-spacing:-1px;transform:rotate(-3deg)}
+.brandLogo:before{content:"+";position:absolute;left:8px;top:4px;font-size:13px;color:#ffe18a}.brandLogo:after{content:"÷";position:absolute;right:7px;bottom:4px;font-size:14px;color:#bff7e1}.brandLogo span{transform:rotate(3deg)}
 .brand h1{margin:0;font-size:clamp(28px,4vw,44px);letter-spacing:-1.3px}
 .brand p{margin:5px 0 0;color:var(--muted)}
 .topStats{display:flex;gap:9px;flex-wrap:wrap}
@@ -116,7 +119,7 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 <body>
 <div class="wrap">
 <header>
-  <div class="brand"><h1>⛰️ Mt. Diablo Math Quest 2</h1><p>From 6th-grade review to 7th-grade mastery</p></div>
+  <div class="brand"><div class="brandLogo" aria-label="Diablo Math logo"><span>DM</span></div><div class="brandWords"><h1>Diablo Math</h1><p>From 6th-grade review to 12th-grade mastery</p></div></div>
   <div class="topStats">
     <div class="stat">⚡ <span id="xp">0</span> XP</div>
     <div class="stat">🪙 <span id="coins">0</span></div>
