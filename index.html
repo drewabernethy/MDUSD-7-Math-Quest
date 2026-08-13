@@ -55,6 +55,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;fl
 .world{width:100%;padding:14px;border:3px solid rgba(255,255,255,.9);border-radius:22px;background:rgba(255,255,255,.94);text-align:left;transition:.18s;box-shadow:0 9px 22px rgba(43,81,70,.15);display:grid;grid-template-columns:68px 1fr;gap:12px;align-items:center;position:relative}
 .world:hover{transform:translateY(-3px) scale(1.01);border-color:#c8c2ff}
 .world.locked{opacity:.5;cursor:not-allowed}
+.world.reviewWorld{background:linear-gradient(135deg,#fff8d7,#fff);border-color:#f2c94c}.world.reviewWorld .mapPin{background:linear-gradient(135deg,#eaa900,#ffcf45);box-shadow:0 6px 0 #b47700}.world.reviewWorld .tag{background:#fff0b7;color:#795500}
 .mapPin{width:64px;height:64px;border-radius:50% 50% 50% 12px;transform:rotate(-45deg);display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 6px 0 #4a3bc0;color:white;border:4px solid white}
 .mapPin span{transform:rotate(45deg);font-size:29px}.mapCopy{min-width:0}.mapNumber{position:absolute;right:11px;top:9px;font-size:11px;font-weight:950;color:#8a91a0}
 .world h4{margin:0 0 4px;padding-right:32px}.world p{font-size:13px;color:var(--muted);margin:0}
@@ -277,13 +278,17 @@ const characterPacks=[
  {id:"forest",name:"Forest Animal Pack",icon:"🌲",price:10,desc:"Friendly creatures from the woods and mountains.",preview:"🦊 🐿️ 🦉 🐻"},
  {id:"mystical",name:"Mystical Pack",icon:"✨",price:15,desc:"Magical companions, ancient beasts and legends.",preview:"🦄 🐉 🧚 🔥"},
  {id:"ocean",name:"Ocean Pack",icon:"🌊",price:12,desc:"Colorful characters from reefs and deep water.",preview:"🐠 🐙 🐬 🐋"},
- {id:"cosmic",name:"Cosmic Pack",icon:"🌌",price:20,desc:"Visitors and explorers from beyond the stars.",preview:"👽 🤖 👾 🧑‍🚀"}
+ {id:"cosmic",name:"Cosmic Pack",icon:"🌌",price:20,desc:"Visitors and explorers from beyond the stars.",preview:"👽 🤖 👾 🧑‍🚀"},
+ {id:"jungle",name:"Jungle Pack",icon:"🌴",price:14,desc:"Bold companions from tropical forests and rivers.",preview:"🐒 🐯 🦜 🦁"},
+ {id:"prehistoric",name:"Prehistoric Pack",icon:"🦴",price:18,desc:"Ancient creatures from long before homework existed.",preview:"🦖 🦕 🐊 🦣"}
 ];
 const characters=[
  {id:"fox",pack:"forest",thing:"🦊",name:"Trail Fox",rarity:"common"},{id:"rabbit",pack:"forest",thing:"🐇",name:"Quick Rabbit",rarity:"common"},{id:"squirrel",pack:"forest",thing:"🐿️",name:"Acorn Scout",rarity:"uncommon"},{id:"panda",pack:"forest",thing:"🐼",name:"Bamboo Panda",rarity:"uncommon"},{id:"owl",pack:"forest",thing:"🦉",name:"Wise Owl",rarity:"rare"},{id:"deer",pack:"forest",thing:"🦌",name:"Meadow Deer",rarity:"rare"},{id:"bear",pack:"forest",thing:"🐻",name:"Summit Bear",rarity:"epic"},
  {id:"fairy",pack:"mystical",thing:"🧚",name:"Glitter Fairy",rarity:"uncommon"},{id:"unicorn",pack:"mystical",thing:"🦄",name:"Moon Unicorn",rarity:"rare"},{id:"mermaid",pack:"mystical",thing:"🧜",name:"River Mermaid",rarity:"rare"},{id:"dragon",pack:"mystical",thing:"🐉",name:"Diablo Dragon",rarity:"epic"},{id:"griffin",pack:"mystical",thing:"🦅",name:"Golden Griffin",rarity:"epic"},{id:"phoenix",pack:"mystical",thing:"🔥",name:"Solar Phoenix",rarity:"legendary"},
  {id:"fish",pack:"ocean",thing:"🐠",name:"Reef Fish",rarity:"common"},{id:"crab",pack:"ocean",thing:"🦀",name:"Clever Crab",rarity:"common"},{id:"octopus",pack:"ocean",thing:"🐙",name:"Puzzle Octopus",rarity:"uncommon"},{id:"dolphin",pack:"ocean",thing:"🐬",name:"Speedy Dolphin",rarity:"rare"},{id:"shark",pack:"ocean",thing:"🦈",name:"Equation Shark",rarity:"epic"},{id:"whale",pack:"ocean",thing:"🐋",name:"Ancient Whale",rarity:"legendary"},
- {id:"alien",pack:"cosmic",thing:"👽",name:"Little Alien",rarity:"common"},{id:"robot",pack:"cosmic",thing:"🤖",name:"Equation Bot",rarity:"uncommon"},{id:"invader",pack:"cosmic",thing:"👾",name:"Pixel Visitor",rarity:"rare"},{id:"astronaut",pack:"cosmic",thing:"🧑‍🚀",name:"Math Astronaut",rarity:"rare"},{id:"satellite",pack:"cosmic",thing:"🛰️",name:"Orbit Scout",rarity:"epic"},{id:"star",pack:"cosmic",thing:"🌟",name:"Living Star",rarity:"legendary"}
+ {id:"alien",pack:"cosmic",thing:"👽",name:"Little Alien",rarity:"common"},{id:"robot",pack:"cosmic",thing:"🤖",name:"Equation Bot",rarity:"uncommon"},{id:"invader",pack:"cosmic",thing:"👾",name:"Pixel Visitor",rarity:"rare"},{id:"astronaut",pack:"cosmic",thing:"🧑‍🚀",name:"Math Astronaut",rarity:"rare"},{id:"satellite",pack:"cosmic",thing:"🛰️",name:"Orbit Scout",rarity:"epic"},{id:"star",pack:"cosmic",thing:"🌟",name:"Living Star",rarity:"legendary"},
+ {id:"monkey",pack:"jungle",thing:"🐒",name:"Number Monkey",rarity:"common"},{id:"parrot",pack:"jungle",thing:"🦜",name:"Pattern Parrot",rarity:"common"},{id:"elephant",pack:"jungle",thing:"🐘",name:"Memory Elephant",rarity:"uncommon"},{id:"tiger",pack:"jungle",thing:"🐯",name:"Fraction Tiger",rarity:"rare"},{id:"gorilla",pack:"jungle",thing:"🦍",name:"Algebra Gorilla",rarity:"epic"},{id:"lion",pack:"jungle",thing:"🦁",name:"Golden Jungle King",rarity:"legendary"},
+ {id:"raptor",pack:"prehistoric",thing:"🦖",name:"Rapid Raptor",rarity:"common"},{id:"triceratops",pack:"prehistoric",thing:"🦕",name:"Tri-Horn Thinker",rarity:"common"},{id:"croc",pack:"prehistoric",thing:"🐊",name:"Ancient Croc",rarity:"uncommon"},{id:"mammoth",pack:"prehistoric",thing:"🦣",name:"Mighty Mammoth",rarity:"rare"},{id:"trex",pack:"prehistoric",thing:"🦖",name:"Equation Rex",rarity:"epic"},{id:"fossil",pack:"prehistoric",thing:"🦴",name:"Living Fossil",rarity:"legendary"}
 ];
 const rarityOrder={common:0,uncommon:1,rare:2,epic:3,legendary:4};
 const rarityWeights={common:45,uncommon:28,rare:17,epic:8,legendary:2};
@@ -294,6 +299,7 @@ state.dashBest=state.dashBest||0;
 state.dashWins=state.dashWins||0;
 state.characterCounts=state.characterCounts||{fox:1};
 state.selectedCharacter=state.selectedCharacter||state.avatar||"fox";
+state.gradeReviews=state.gradeReviews||{};
 if(state.owned)state.owned.forEach(id=>{if(characters.some(c=>c.id===id)&&!state.characterCounts[id])state.characterCounts[id]=1});
 if(!state.characterCounts[state.selectedCharacter])state.selectedCharacter="fox";
 for(const w of worldDefs){if(!state.skills[w.id])state.skills[w.id]={attempts:0,correct:0,difficulty:1};}
@@ -353,11 +359,12 @@ function renderWorlds(){
  document.getElementById("gradeTabs").innerHTML=grades.map(g=>`<button class="${activeGrade===g?'active':''}" ${!gradeUnlocked(g)?'disabled':''} onclick="setGrade(${g})">${g===6?'6th Review':(!gradeUnlocked(g)?'🔒 ':'')+g+'th Grade'}</button>`).join("");
  const complete=gradeComplete(activeGrade),next=activeGrade<12?activeGrade+1:null;
  document.getElementById("gradeStatus").innerHTML=complete?`<span class="gradeComplete">✅ Grade ${activeGrade} complete!</span><span>${next?'Grade '+next+' is unlocked.':'You reached the final summit!'}</span>`:`<span>Reach at least <b>80% mastery</b> in every stop${activeGrade===7?' and finish the Summit Challenge':''}.</span><span>🎓 Early bonus: <b>100 coins</b></span>`;
- const shown=gradeWorlds(activeGrade);
- document.getElementById("worlds").innerHTML=shown.map((w,i)=>{
+ const shown=gradeWorlds(activeGrade),mapStops=complete?[...shown,{id:`review${activeGrade}`,icon:"📝",title:"Review",grade:`Grade ${activeGrade} Review`,level:activeGrade,desc:"Mixed practice from every stop in this grade",review:true}]:shown;
+ document.getElementById("worlds").innerHTML=mapStops.map((w,i)=>{
+   if(w.review)return `<div class="mapStop"><button class="world reviewWorld" onclick="startGradeReview(${activeGrade})"><div class="mapPin"><span>${w.icon}</span></div><div class="mapCopy"><span class="mapNumber">FINAL STOP</span><h4>${w.title}</h4><p>${w.desc}</p><span class="tag">⭐ Replay anytime</span><div class="mastery"><div class="masteryBar"><div style="width:100%"></div></div><div class="masteryTxt">${state.gradeReviews[activeGrade]||0} reviews completed</div></div></div></button></div>`;
    let lock=!unlocked(w,i),m=mastery(w.id);
    let lockText=w.id==="boss"?'Master the Grade 7 stops first':'Finish the previous grade';
-   return `<div class="mapStop"><button class="world ${lock?'locked':''}" ${lock?'disabled':''} onclick="startWorld('${w.id}')"><div class="mapPin"><span>${w.icon}</span></div><div class="mapCopy"><span class="mapNumber">STOP ${i+1}</span><h4>${w.title}</h4><p>${w.desc}</p><span class="tag">${lock?'🔒 '+lockText:w.grade}</span><div class="mastery"><div class="masteryBar"><div style="width:${m}%"></div></div><div class="masteryTxt">${w.id==='boss'?(state.completed.boss||0)+' summit wins':m+'% mastery • difficulty '+state.skills[w.id].difficulty+'/3'}</div></div></div></button>${i<shown.length-1?'<div class="trailConnector"></div>':''}</div>`;
+   return `<div class="mapStop"><button class="world ${lock?'locked':''}" ${lock?'disabled':''} onclick="startWorld('${w.id}')"><div class="mapPin"><span>${w.icon}</span></div><div class="mapCopy"><span class="mapNumber">STOP ${i+1}</span><h4>${w.title}</h4><p>${w.desc}</p><span class="tag">${lock?'🔒 '+lockText:w.grade}</span><div class="mastery"><div class="masteryBar"><div style="width:${m}%"></div></div><div class="masteryTxt">${w.id==='boss'?(state.completed.boss||0)+' summit wins':m+'% mastery • difficulty '+state.skills[w.id].difficulty+'/3'}</div></div></div></button>${i<mapStops.length-1?'<div class="trailConnector"></div>':''}</div>`;
  }).join("");
 }
 function renderBadges(){
@@ -522,6 +529,11 @@ function startMixed(){
  game={world:{id:"daily",icon:"🎯",title:"Daily Quest",grade:"Mixed Practice",lesson:"This quest mixes skills from across the mountain.",example:"Use the strategy that fits each problem."},index:0,correct:0,lessonPhase:true,answered:false,questions:Array.from({length:5},()=>makeQ(choice(ids)))};
  document.getElementById("modal").classList.add("show");document.getElementById("gameTitle").textContent="🎯 Daily Quest";document.getElementById("gameMeta").textContent="Mixed Practice • 5 questions";showLesson();
 }
+function startGradeReview(g){
+ const ids=gradeWorlds(g).filter(w=>w.id!=="boss").map(w=>w.id);
+ game={world:{id:`review${g}`,icon:"📝",title:`Grade ${g} Review`,grade:`Grade ${g}`,lesson:"This review mixes skills from every stop you completed in this grade.",example:"Choose the strategy that matches each problem."},index:0,correct:0,lessonPhase:true,answered:false,isGradeReview:true,reviewGrade:g,questions:Array.from({length:5},()=>makeQ(choice(ids)))};
+ document.getElementById("modal").classList.add("show");document.getElementById("gameTitle").textContent=`📝 Grade ${g} Review`;document.getElementById("gameMeta").textContent="Mixed mastery review • 5 questions";document.getElementById("gameProgress").style.width="0%";showLesson();
+}
 function showLesson(){
  let w=game.world;
  document.getElementById("gameBody").innerHTML=`<div class="lesson"><h3>📘 Mini Lesson</h3><div>${w.lesson}</div><div class="example">${w.example}</div></div><button class="next" onclick="beginQuestions()">I'm ready →</button>`;
@@ -556,7 +568,9 @@ function answer(btn,val){
 function nextQuestion(){game.index++;if(game.index>=5)finishGame();else showQuestion()}
 function finishGame(){
  let bonus=game.correct===5?30:0;if(bonus){state.xp+=30;state.coins+=10}
- state.completed[game.world.id]=(state.completed[game.world.id]||0)+1;save();
+ state.completed[game.world.id]=(state.completed[game.world.id]||0)+1;
+ if(game.isGradeReview)state.gradeReviews[game.reviewGrade]=(state.gradeReviews[game.reviewGrade]||0)+1;
+ save();
  document.getElementById("gameProgress").style.width="100%";
  let title=game.correct===5?"Perfect climb!":game.correct>=4?"Excellent work!":game.correct>=3?"Nice progress!":"Practice makes progress!";
  document.getElementById("gameBody").innerHTML=`<div class="summary"><div class="trophy">${game.correct===5?"🏆":"⛰️"}</div><h2>${title}</h2><p>You got <b>${game.correct} of 5</b> correct.</p><p>${game.correct===5?"Perfect bonus: <b>+30 XP and +10 coins</b>":""}</p><button class="next" onclick="closeGame()">Back to the mountain</button></div>`;
