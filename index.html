@@ -94,6 +94,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px;bor
 .answer{border:2px solid var(--line);background:white;border-radius:14px;padding:15px;font-weight:850}
 .answer:hover{border-color:#bdb6ff}.answer.correct{background:#eafaf2;border-color:#71d3a2;color:#087648}.answer.wrong{background:#fff0f0;border-color:#ffaaa8;color:#ad201a}
 .feedback{min-height:55px;padding-top:12px;font-weight:750;line-height:1.4}
+.helpBtn{border:2px solid #f1c34f;background:#fff8df;color:#705200;border-radius:13px;padding:10px 13px;font-weight:900;margin-top:12px}.helpPanel{display:none;margin-top:10px;padding:15px;border-radius:15px;background:#fff9e8;border:1px solid #f3d67e;color:#5f4a0a;line-height:1.5}.helpPanel.show{display:block}.helpPanel h4{margin:0 0 8px}.helpStep{background:white;border-radius:11px;padding:10px;margin-top:8px}.revealHelp{border:0;background:#7057d8;color:white;border-radius:10px;padding:8px 11px;font-weight:850;margin-top:9px}.workedAnswer{display:none;background:#f0efff;color:#443a87;border-radius:11px;padding:10px;margin-top:9px}.workedAnswer.show{display:block}
 .next{width:100%;border:0;background:var(--primary);color:white;border-radius:14px;padding:13px;font-weight:900}
 .summary{text-align:center;padding:15px 0}.summary .trophy{font-size:72px}.summary h2{font-size:30px;margin:7px}
 .nameRow{display:flex;gap:8px;margin-top:10px}.nameRow input{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px}
@@ -530,7 +531,20 @@ function showQuestion(){
  game.answered=false;let item=game.questions[game.index];
  let specific=wdef(item.skill)||game.world;
  document.getElementById("gameProgress").style.width=(game.index/5*100)+"%";
- document.getElementById("gameBody").innerHTML=`<div class="lesson"><b>💡 Hint:</b> ${specific.lesson}</div><div class="q">${item.q}</div><div class="answers">${optionsFor(item.ans).map(o=>`<button class="answer" onclick="answer(this,'${o}')">${o}</button>`).join("")}</div><div class="feedback" id="feedback"></div><button class="next" id="nextBtn" style="display:none" onclick="nextQuestion()">Next →</button>`;
+ document.getElementById("gameBody").innerHTML=`<div class="lesson"><b>💡 Hint:</b> ${specific.lesson}</div><div class="q">${item.q}</div><div class="answers">${optionsFor(item.ans).map(o=>`<button class="answer" onclick="answer(this,'${o}')">${o}</button>`).join("")}</div><button class="helpBtn" onclick="showHelp()">🙋 I need help</button><div class="helpPanel" id="helpPanel"></div><div class="feedback" id="feedback"></div><button class="next" id="nextBtn" style="display:none" onclick="nextQuestion()">Next →</button>`;
+}
+function helpStrategy(id){
+ const tips={ratios6:"Write the two matching ratios, then find the number that multiplies one row into the other.",numbers6:"Place the values on a number line or rewrite them in the same form before comparing or calculating.",equations6:"Ask which operation is attached to x, then undo it on both sides.",proportion7:"Find the constant rate by dividing y by x, then multiply by the new x-value.",rational7:"Rewrite subtraction as adding the opposite, then use the sign rules.",equations7:"Undo addition or subtraction first, then undo multiplication or division.",geometry7:"Write the angle total or area formula before inserting the numbers.",stats7:"Count the favorable outcomes and total outcomes, then divide.",linear8:"Use slope = change in y ÷ change in x.",functions8:"Replace every x in the rule with the given input.",pythag8:"Label the hypotenuse c, then use a²+b²=c².",algebra9:"Move variable terms to one side and constants to the other.",systems9:"Add or subtract the equations so one variable disappears.",quadratics9:"Set the expression equal to zero or take the square root carefully.",angles10:"Identify the angle relationship first, then write its total.",similarity10:"Match corresponding sides and use the same scale factor.",trig10:"Label opposite, adjacent and hypotenuse, then choose SOH, CAH or TOA.",poly11:"Substitute carefully or distribute every term before combining like terms.",expo11:"Identify the starting value, multiplier and number of periods.",stats11:"Add all values, count them, then divide sum by count.",compose12:"Work from the inside out: calculate g(x) before f(g(x)).",trig12:"Picture the unit circle point; sine is its y-coordinate.",sequence12:"For term n, start with term 1 and apply the difference n−1 times."};
+ return tips[id]||"Break the problem into smaller steps and identify what the question is asking you to find.";
+}
+function showHelp(){
+ const item=game.questions[game.index],specific=wdef(item.skill)||game.world,panel=document.getElementById("helpPanel");
+ panel.innerHTML=`<h4>🧑‍🏫 Let’s work through it</h4><div class="small">There is no penalty for asking for help.</div><div class="helpStep"><b>1. Remember</b><br>${specific.lesson}</div><div class="helpStep"><b>2. Try this strategy</b><br>${helpStrategy(item.skill)}</div><div class="helpStep"><b>3. Look at a similar example</b><br>${specific.example}</div><button class="revealHelp" onclick="revealWorkedAnswer()">Show the worked answer</button><div class="workedAnswer" id="workedAnswer"></div>`;
+ panel.classList.add("show");
+}
+function revealWorkedAnswer(){
+ const item=game.questions[game.index],box=document.getElementById("workedAnswer");
+ box.innerHTML=`<b>Answer: ${fmt(item.ans)}</b><br>${item.explain}`;box.classList.add("show");
 }
 function answer(btn,val){
  if(game.answered)return;game.answered=true;let item=game.questions[game.index],ok=Math.abs(Number(val)-Number(item.ans))<.001;
@@ -556,14 +570,14 @@ function buyDashRun(){
 }
 function startDash(){
  const canvas=document.getElementById("dashCanvas");
- dash={ctx:canvas.getContext("2d"),w:canvas.width,h:canvas.height,runner:{x:105,y:280,vy:0,w:34,h:42},distance:0,collected:0,speed:5.4,obstacles:[],tokens:[],spawn:80,tokenSpawn:48,running:true,finished:false};
+ dash={ctx:canvas.getContext("2d"),w:canvas.width,h:canvas.height,runner:{x:105,y:274,vy:0,w:46,h:48,character:avatarThing()},distance:0,collected:0,speed:5.4,obstacles:[],tokens:[],spawn:80,tokenSpawn:48,running:true,finished:false};
  document.getElementById("dashModal").classList.add("show");
  document.getElementById("dashMessage").textContent="";
  updateDashReadout();dashLast=performance.now();cancelAnimationFrame(dashFrame);dashFrame=requestAnimationFrame(dashLoop);
 }
 function dashJump(){
  if(!dash||!dash.running)return;
- if(dash.runner.y>=279){dash.runner.vy=-13.2}
+ if(dash.runner.y>=273){dash.runner.vy=-13.2}
 }
 function closeDash(){
  if(dash)dash.running=false;cancelAnimationFrame(dashFrame);document.getElementById("dashModal").classList.remove("show");
@@ -580,7 +594,7 @@ function dashLoop(now){
 function updateDash(step){
  const d=dash,r=d.runner;
  d.distance+=d.speed*.115*step;d.speed=Math.min(9,5.4+d.distance/310);
- r.vy+=.72*step;r.y+=r.vy*step;if(r.y>280){r.y=280;r.vy=0}
+ r.vy+=.72*step;r.y+=r.vy*step;if(r.y>274){r.y=274;r.vy=0}
  d.spawn-=step;if(d.spawn<=0){
    let tall=Math.random()<.32;d.obstacles.push({x:d.w+20,y:tall?270:292,w:tall?29:38,h:tall?52:30});
    d.spawn=52+Math.random()*48;
@@ -612,8 +626,7 @@ function drawDash(){
  c.fillStyle="#76583d";c.fillRect(0,322,w,38);c.fillStyle="#83ba62";c.fillRect(0,312,w,12);
  d.tokens.forEach(t=>{c.fillStyle="#ffc928";c.beginPath();c.arc(t.x,t.y,t.r,0,Math.PI*2);c.fill();c.fillStyle="#fff1a1";c.font="bold 13px sans-serif";c.fillText("★",t.x-6,t.y+5)});
  d.obstacles.forEach(o=>{c.fillStyle="#685e5a";c.beginPath();c.roundRect(o.x,o.y,o.w,o.h,7);c.fill();c.fillStyle="#91827b";c.fillRect(o.x+7,o.y+7,8,6)});
- const r=d.runner;c.fillStyle="#6957f5";c.beginPath();c.roundRect(r.x,r.y,r.w,r.h,9);c.fill();c.fillStyle="#fff";c.fillRect(r.x+21,r.y+9,6,6);c.fillStyle="#253047";c.fillRect(r.x+23,r.y+11,3,3);
- c.fillStyle="#ffb703";c.fillRect(r.x-8,r.y+10,12,7);
+ const r=d.runner;c.save();c.font='44px "Apple Color Emoji","Segoe UI Emoji",sans-serif';c.textAlign="center";c.textBaseline="middle";c.fillText(r.character,r.x+r.w/2,r.y+r.h/2+1);c.restore();
  c.fillStyle="rgba(255,255,255,.8)";c.fillRect(20,20,w-40,10);c.fillStyle="#6957f5";c.fillRect(20,20,(w-40)*Math.min(1,d.distance/1000),10);
 }
 document.getElementById("dashCanvas").addEventListener("pointerdown",e=>{e.preventDefault();dashJump()});
