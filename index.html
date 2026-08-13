@@ -212,12 +212,12 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
     <h3>🏃 Diablo Dash</h3>
     <div style="font-weight:900;color:#fff3bf;margin:-2px 0 7px">Geometry Dash-style minigame</div>
     <p>Race across Mt. Diablo and jump over sharp spikes and roaming monsters. Reach the summit and collect trail coins along the way.</p>
-    <div class="costPill">⚡ 50 XP per run</div><br>
+    <div class="costPill">🪙 50 coins per run</div><br>
     <button class="cta" id="dashPlayBtn" onclick="buyDashRun()">Play Diablo Dash</button>
     <div class="dashStats">
       <div class="dashStat"><b id="dashBest">0</b><span>Best distance</span></div>
       <div class="dashStat"><b id="dashWins">0</b><span>Summits reached</span></div>
-      <div class="dashStat"><b id="arcadeXP">0</b><span>XP available</span></div>
+      <div class="dashStat"><b id="dashCoins">0</b><span>Coins available</span></div>
     </div>
   </div><div class="card minigameHero stackHero">
     <h3>🧱 Summit Stacker</h3>
@@ -393,11 +393,11 @@ function render(){
  document.getElementById("streak").textContent=state.streak;
  document.getElementById("level").textContent=level();
  document.getElementById("shopCoins").textContent=state.coins;
- document.getElementById("arcadeXP").textContent=state.xp;document.getElementById("stackXP").textContent=state.xp;
+ document.getElementById("dashCoins").textContent=state.coins;document.getElementById("stackXP").textContent=state.xp;
  document.getElementById("dashBest").textContent=state.dashBest+"m";
  document.getElementById("dashWins").textContent=state.dashWins;
- document.getElementById("dashPlayBtn").disabled=state.xp<50;
- document.getElementById("dashPlayBtn").textContent=state.xp>=50?"Play Diablo Dash":"Need "+(50-state.xp)+" more XP";
+ document.getElementById("dashPlayBtn").disabled=state.coins<50;
+ document.getElementById("dashPlayBtn").textContent=state.coins>=50?"Play Diablo Dash":"Need "+(50-state.coins)+" more coins";
  document.getElementById("stackBest").textContent=state.stackBest+" blocks";document.getElementById("stackGames").textContent=state.stackGames;
  document.getElementById("stackPlayBtn").disabled=state.xp<35;document.getElementById("stackPlayBtn").textContent=state.xp>=35?"Play Summit Stacker":"Need "+(35-state.xp)+" more XP";
  document.getElementById("avatar").textContent=avatarThing();
@@ -669,8 +669,8 @@ function closeGame(){document.getElementById("modal").classList.remove("show")}
 
 let dash=null,dashFrame=0,dashLast=0;
 function buyDashRun(){
- if(state.xp<50){alert(`You need ${50-state.xp} more XP to play Diablo Dash.`);return}
- state.xp-=50;save();startDash();
+ if(state.coins<50){alert(`You need ${50-state.coins} more coins to play Diablo Dash.`);return}
+ state.coins-=50;save();startDash();
 }
 function startDash(){
  const canvas=document.getElementById("dashCanvas");
