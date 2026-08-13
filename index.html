@@ -21,7 +21,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;fl
 .brandLogo{width:62px;height:62px;flex:0 0 62px;border-radius:19px;background:linear-gradient(145deg,#4737cf,#8f7cff);color:white;display:grid;place-items:center;position:relative;box-shadow:0 9px 20px rgba(78,62,198,.28),inset 0 0 0 3px rgba(255,255,255,.22);font-weight:950;font-size:23px;letter-spacing:-1px;transform:rotate(-3deg)}
 .brandLogo:before{content:"+";position:absolute;left:8px;top:4px;font-size:13px;color:#ffe18a}.brandLogo:after{content:"÷";position:absolute;right:7px;bottom:4px;font-size:14px;color:#bff7e1}.brandLogo span{transform:rotate(3deg)}
 .brand h1{margin:0;font-size:clamp(28px,4vw,44px);letter-spacing:-1.3px}
-.brand p{margin:5px 0 0;color:var(--muted)}
+.brand p{margin:5px 0 0;color:var(--muted)}.byline{font-size:12px;font-weight:850;color:#6957f5;margin-top:3px}
 .topStats{display:flex;gap:9px;flex-wrap:wrap}
 .stat{background:white;padding:10px 13px;border-radius:15px;box-shadow:var(--shadow);font-weight:850}
 .stat span{color:var(--primary)}
@@ -96,6 +96,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px;bor
 .answer:hover{border-color:#bdb6ff}.answer.correct{background:#eafaf2;border-color:#71d3a2;color:#087648}.answer.wrong{background:#fff0f0;border-color:#ffaaa8;color:#ad201a}
 .feedback{min-height:55px;padding-top:12px;font-weight:750;line-height:1.4}
 .helpBtn{border:2px solid #f1c34f;background:#fff8df;color:#705200;border-radius:13px;padding:10px 13px;font-weight:900;margin-top:12px}.helpPanel{display:none;margin-top:10px;padding:15px;border-radius:15px;background:#fff9e8;border:1px solid #f3d67e;color:#5f4a0a;line-height:1.5}.helpPanel.show{display:block}.helpPanel h4{margin:0 0 8px}.helpStep{background:white;border-radius:11px;padding:10px;margin-top:8px}.revealHelp{border:0;background:#7057d8;color:white;border-radius:10px;padding:8px 11px;font-weight:850;margin-top:9px}.workedAnswer{display:none;background:#f0efff;color:#443a87;border-radius:11px;padding:10px;margin-top:9px}.workedAnswer.show{display:block}
+.welcomeModal{position:fixed;inset:0;background:linear-gradient(145deg,#4d3ed4,#8f7cff);display:none;place-items:center;padding:18px;z-index:100}.welcomeModal.show{display:grid}.welcomeCard{width:min(570px,100%);background:white;border-radius:26px;padding:25px;text-align:center;box-shadow:0 25px 90px rgba(28,20,96,.35)}.welcomeLogo{width:78px;height:78px;border-radius:23px;background:linear-gradient(145deg,#4737cf,#8f7cff);color:#fff;display:grid;place-items:center;margin:auto;font-size:29px;font-weight:950;box-shadow:0 8px 18px rgba(73,57,198,.28)}.welcomeCard h2{font-size:30px;margin:12px 0 5px}.gradeChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px}.gradeChoices button{border:2px solid var(--line);background:white;border-radius:14px;padding:13px 7px;font-weight:900;color:#5143c7}.gradeChoices button:hover{border-color:var(--primary);background:#f4f2ff}.changeGrade{border:0;background:transparent;color:var(--primary);font-weight:850;padding:4px 0;margin-top:5px;font-size:12px}
 .next{width:100%;border:0;background:var(--primary);color:white;border-radius:14px;padding:13px;font-weight:900}
 .summary{text-align:center;padding:15px 0}.summary .trophy{font-size:72px}.summary h2{font-size:30px;margin:7px}
 .nameRow{display:flex;gap:8px;margin-top:10px}.nameRow input{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px}
@@ -119,9 +120,23 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 </style>
 </head>
 <body>
+<div class="welcomeModal" id="welcomeModal">
+  <div class="welcomeCard">
+    <div class="welcomeLogo">DM</div>
+    <h2>Welcome to Diablo Math!</h2>
+    <p>What grade are you in? We’ll start your adventure at the right place. You can change this later.</p>
+    <div class="gradeChoices">
+      <button onclick="chooseStartingGrade(0)">Kindergarten</button><button onclick="chooseStartingGrade(1)">1st Grade</button><button onclick="chooseStartingGrade(2)">2nd Grade</button>
+      <button onclick="chooseStartingGrade(3)">3rd Grade</button><button onclick="chooseStartingGrade(4)">4th Grade</button><button onclick="chooseStartingGrade(5)">5th Grade</button>
+      <button onclick="chooseStartingGrade(6)">6th Grade</button><button onclick="chooseStartingGrade(7)">7th Grade</button><button onclick="chooseStartingGrade(8)">8th Grade</button>
+      <button onclick="chooseStartingGrade(9)">9th Grade</button><button onclick="chooseStartingGrade(10)">10th Grade</button><button onclick="chooseStartingGrade(11)">11th Grade</button>
+      <button onclick="chooseStartingGrade(12)">12th Grade</button>
+    </div>
+  </div>
+</div>
 <div class="wrap">
 <header>
-  <div class="brand"><div class="brandLogo" aria-label="Diablo Math logo"><span>DM</span></div><div class="brandWords"><h1>Diablo Math</h1><p>From 6th-grade review to 12th-grade mastery</p></div></div>
+  <div class="brand"><div class="brandLogo" aria-label="Diablo Math logo"><span>DM</span></div><div class="brandWords"><h1>Diablo Math</h1><div class="byline">Made by Rian Abernethy</div><p>From 6th-grade review to 12th-grade mastery</p></div></div>
   <div class="topStats">
     <div class="stat">⚡ <span id="xp">0</span> XP</div>
     <div class="stat">🪙 <span id="coins">0</span></div>
@@ -150,7 +165,7 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
     </div>
     <div class="card side">
       <h3>Your Adventurer</h3>
-      <div class="avatarBox"><div class="avatar" id="avatar">🦊</div><div><b id="playerName">Math Adventurer</b><div class="small" id="rank">Trail Starter</div></div></div>
+      <div class="avatarBox"><div class="avatar" id="avatar">🦊</div><div><b id="playerName">Math Adventurer</b><div class="small" id="rank">Trail Starter</div><button class="changeGrade" onclick="openGradeChooser()">Change grade</button></div></div>
       <div class="small">Name</div>
       <div class="nameRow"><input id="nameInput" placeholder="Enter first name"><button onclick="saveName()">Save</button></div>
       <div style="margin-top:15px" class="note">💡 <b>Adaptive mode:</b> after several correct answers in a skill, questions get harder. If a skill is missed repeatedly, the app brings the difficulty back down.</div>
@@ -248,6 +263,24 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 
 <script>
 const worldDefs=[
+{id:"countK",icon:"🍎",title:"Counting Garden",grade:"Kindergarten",level:0,desc:"Count objects from 0 to 20",lesson:"Touch or point to each object once while saying the numbers in order.",example:"🍎🍎🍎 has 3 apples."},
+{id:"shapesK",icon:"🔵",title:"Shape Meadow",grade:"Kindergarten",level:0,desc:"Recognize basic shapes",lesson:"Shapes have different numbers of sides and corners.",example:"A triangle has 3 sides; a square has 4."},
+{id:"addK",icon:"🧸",title:"Adding Playground",grade:"Kindergarten",level:0,desc:"Add and subtract within 10",lesson:"Adding puts groups together. Subtracting takes some away.",example:"2 toys plus 3 toys makes 5 toys."},
+{id:"add1",icon:"🐝",title:"Addition Orchard",grade:"1st Grade",level:1,desc:"Add and subtract within 20",lesson:"Use counting on, number bonds, or make a ten.",example:"8+5: make 10 with 2, then add 3 → 13."},
+{id:"place1",icon:"🔟",title:"Tens Trail",grade:"1st Grade",level:1,desc:"Tens and ones",lesson:"Two-digit numbers are made of tens and ones.",example:"34 means 3 tens and 4 ones."},
+{id:"compare1",icon:"🐊",title:"Compare Creek",grade:"1st Grade",level:1,desc:"Compare numbers",lesson:"The greater number has more. Use >, <, or =.",example:"17 > 12 because 17 is greater."},
+{id:"add2",icon:"➕",title:"Hundreds Highway",grade:"2nd Grade",level:2,desc:"Add and subtract within 100",lesson:"Line up ones with ones and tens with tens.",example:"24+13 = 37."},
+{id:"place2",icon:"🏠",title:"Place Value Village",grade:"2nd Grade",level:2,desc:"Hundreds, tens and ones",lesson:"Each digit's position tells its value.",example:"352 has 3 hundreds, 5 tens and 2 ones."},
+{id:"money2",icon:"🪙",title:"Money Market",grade:"2nd Grade",level:2,desc:"Coins and simple measurement",lesson:"Add coin values just like other numbers.",example:"A dime and a nickel are worth 15 cents."},
+{id:"multiply3",icon:"✖️",title:"Multiplication Camp",grade:"3rd Grade",level:3,desc:"Multiply and divide",lesson:"Multiplication combines equal groups. Division splits into equal groups.",example:"4 groups of 3 equals 4×3=12."},
+{id:"fractions3",icon:"🍕",title:"Fraction Picnic",grade:"3rd Grade",level:3,desc:"Unit fractions",lesson:"The denominator tells equal parts; the numerator tells how many parts.",example:"1/4 is one of four equal parts."},
+{id:"area3",icon:"🟦",title:"Area Acres",grade:"3rd Grade",level:3,desc:"Area and perimeter",lesson:"Rectangle area = length×width. Perimeter is the distance around.",example:"A 3 by 4 rectangle has area 12."},
+{id:"multi4",icon:"🧠",title:"Big Number Bay",grade:"4th Grade",level:4,desc:"Multi-digit operations",lesson:"Use place value and regroup carefully.",example:"326+148=474."},
+{id:"fractions4",icon:"🥧",title:"Fraction Falls",grade:"4th Grade",level:4,desc:"Equivalent fractions",lesson:"Multiply numerator and denominator by the same number.",example:"1/2 = 2/4."},
+{id:"angles4",icon:"📐",title:"Angle Island",grade:"4th Grade",level:4,desc:"Angles and geometry",lesson:"Right angles are 90°. Acute angles are smaller; obtuse are larger.",example:"45° is acute."},
+{id:"decimal5",icon:"💯",title:"Decimal Dunes",grade:"5th Grade",level:5,desc:"Decimals and place value",lesson:"Tenths are one place after the decimal; hundredths are two.",example:"0.7 means seven tenths."},
+{id:"fraction5",icon:"➗",title:"Fraction Frontier",grade:"5th Grade",level:5,desc:"Fraction operations",lesson:"Use a common denominator before adding fractions.",example:"1/4+2/4=3/4."},
+{id:"volume5",icon:"📦",title:"Volume Valley",grade:"5th Grade",level:5,desc:"Volume and coordinate graphs",lesson:"Rectangular-prism volume = length×width×height.",example:"2×3×4=24 cubic units."},
 {id:"ratios6",icon:"🍕",title:"Ratio Ridge",grade:"6th Review",desc:"Ratios, rates & percentages",lesson:"Ratios compare quantities. Unit rate means “for 1.” Percent means “out of 100.”",example:"Example: 3 notebooks cost $12 → $12 ÷ 3 = $4 each."},
 {id:"numbers6",icon:"🌡️",title:"Rational River",grade:"6th Review",desc:"Fractions, decimals & negatives",lesson:"Rational numbers include integers, fractions and terminating or repeating decimals.",example:"Example: −3 is greater than −8 because −3 is farther right on the number line."},
 {id:"equations6",icon:"🧩",title:"Equation Cavern",grade:"6th Review",desc:"Expressions & one-step equations",lesson:"Use inverse operations to isolate the variable.",example:"Example: x + 7 = 12 → subtract 7 from both sides → x = 5."},
@@ -304,7 +337,7 @@ if(state.owned)state.owned.forEach(id=>{if(characters.some(c=>c.id===id)&&!state
 if(!state.characterCounts[state.selectedCharacter])state.selectedCharacter="fox";
 for(const w of worldDefs){if(!state.skills[w.id])state.skills[w.id]={attempts:0,correct:0,difficulty:1};}
 let game={world:null,questions:[],index:0,correct:0,lessonPhase:true,answered:false};
-let activeGrade=7;
+let activeGrade=state.startingGrade??7;
 
 const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 const choice=a=>a[rnd(0,a.length-1)];
@@ -316,14 +349,15 @@ function save(){let bonus=checkGradeRewards();localStorage.setItem("mdMathQuestV
 function level(){return Math.floor(state.xp/100)+1}
 function rank(){let l=level();return l>=10?"Diablo Math Legend":l>=7?"Summit Solver":l>=4?"Trail Mathematician":"Trail Starter"}
 function mastery(id){let s=state.skills[id];if(!s||s.attempts===0)return 0;return Math.round(s.correct/s.attempts*100)}
-function worldGrade(w){if(w.level)return w.level;if(w.id.endsWith("6"))return 6;return 7}
+function worldGrade(w){if(w.level!==undefined)return w.level;if(w.id.endsWith("6"))return 6;return 7}
+function gradeName(g){return g===0?"Kindergarten":g+({1:"st",2:"nd",3:"rd"}[g]||"th")+" Grade"}
 function gradeWorlds(g){return worldDefs.filter(w=>worldGrade(w)===g)}
 function gradeComplete(g){
  const units=gradeWorlds(g).filter(w=>w.id!=="boss");
  const skillsDone=units.length>0&&units.every(w=>mastery(w.id)>=80);
  return g===7?skillsDone&&(state.completed.boss||0)>=1:skillsDone;
 }
-function gradeUnlocked(g){return g<=7||gradeComplete(g-1)}
+function gradeUnlocked(g){return g<=Math.max(7,state.startingGrade??7)||gradeComplete(g-1)}
 function unlocked(w,i){let g=worldGrade(w);if(!gradeUnlocked(g))return false;if(w.id==="boss")return state.correct>=35&&gradeWorlds(7).filter(x=>x.id!=="boss").every(x=>mastery(x.id)>=80);return true}
 function schoolYearDeadline(){let n=new Date(),year=n.getMonth()>=6?n.getFullYear()+1:n.getFullYear();return new Date(year,5,15,23,59,59)}
 function checkGradeRewards(){
@@ -350,13 +384,17 @@ function render(){
  let p=state.xp%100;document.getElementById("levelBar").style.width=p+"%";document.getElementById("levelText").textContent=`${p} / 100 XP to Level ${level()+1}`;
  renderWorlds();renderBadges();renderPath();renderPackShop();renderCharacters();renderDashboard();
 }
+function openGradeChooser(){document.getElementById("welcomeModal").classList.add("show")}
+function chooseStartingGrade(g){
+ state.startingGrade=g;activeGrade=g;localStorage.setItem("mdMathQuestV2",JSON.stringify(state));document.getElementById("welcomeModal").classList.remove("show");render();
+}
 function showPage(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
 function saveName(){state.name=document.getElementById("nameInput").value.trim().slice(0,20);save();}
 
 function setGrade(g){if(!gradeUnlocked(g))return;activeGrade=g;renderWorlds()}
 function renderWorlds(){
- const grades=[6,7,8,9,10,11,12];
- document.getElementById("gradeTabs").innerHTML=grades.map(g=>`<button class="${activeGrade===g?'active':''}" ${!gradeUnlocked(g)?'disabled':''} onclick="setGrade(${g})">${g===6?'6th Review':(!gradeUnlocked(g)?'🔒 ':'')+g+'th Grade'}</button>`).join("");
+ const grades=[0,1,2,3,4,5,6,7,8,9,10,11,12];
+ document.getElementById("gradeTabs").innerHTML=grades.map(g=>`<button class="${activeGrade===g?'active':''}" ${!gradeUnlocked(g)?'disabled':''} onclick="setGrade(${g})">${!gradeUnlocked(g)?'🔒 ':''}${g===6?'6th Review':gradeName(g)}</button>`).join("");
  const complete=gradeComplete(activeGrade),next=activeGrade<12?activeGrade+1:null;
  document.getElementById("gradeStatus").innerHTML=complete?`<span class="gradeComplete">✅ Grade ${activeGrade} complete!</span><span>${next?'Grade '+next+' is unlocked.':'You reached the final summit!'}</span>`:`<span>Reach at least <b>80% mastery</b> in every stop${activeGrade===7?' and finish the Summit Challenge':''}.</span><span>🎓 Early bonus: <b>100 coins</b></span>`;
  const shown=gradeWorlds(activeGrade),mapStops=complete?[...shown,{id:`review${activeGrade}`,icon:"📝",title:"Review",grade:`Grade ${activeGrade} Review`,level:activeGrade,desc:"Mixed practice from every stop in this grade",review:true}]:shown;
@@ -445,6 +483,24 @@ function adjustDifficulty(id,wasCorrect){
 function makeQ(id){
  if(id==="boss")id=choice(["ratios6","numbers6","equations6","proportion7","rational7","equations7","geometry7","stats7"]);
  let d=state.skills[id]?.difficulty||1,q="",ans=0,explain="";
+ if(id==="countK"){let n=rnd(1,10+d*3);q=`How many stars are here? ${"⭐".repeat(n)}`;ans=n;explain=`Count each star once. There are ${n}.`;}
+ if(id==="shapesK"){let item=choice([["triangle",3],["square",4],["rectangle",4],["pentagon",5]]);q=`How many sides does a ${item[0]} have?`;ans=item[1];explain=`A ${item[0]} has ${item[1]} sides.`;}
+ if(id==="addK"){let a=rnd(0,5),b=rnd(0,5);q=`You have ${a} blocks and get ${b} more. How many blocks now?`;ans=a+b;explain=`Count on ${b} from ${a} to get ${ans}.`;}
+ if(id==="add1"){let a=rnd(2,12),b=rnd(1,Math.min(8,20-a));q=`Calculate: ${a} + ${b}`;ans=a+b;explain=`Count on ${b} from ${a}: the answer is ${ans}.`;}
+ if(id==="place1"){let n=rnd(10,99);q=`How many tens are in ${n}?`;ans=Math.floor(n/10);explain=`The tens digit in ${n} is ${ans}.`;}
+ if(id==="compare1"){let a=rnd(1,99),b=rnd(1,99);q=`Which number is greater: ${a} or ${b}?`;ans=Math.max(a,b);explain=`${ans} is farther right on the number line.`;}
+ if(id==="add2"){let a=rnd(10,70),b=rnd(5,Math.min(29,100-a));q=`Calculate: ${a} + ${b}`;ans=a+b;explain=`Add ones, then tens. The sum is ${ans}.`;}
+ if(id==="place2"){let n=rnd(100,999);q=`What is the value of the hundreds digit in ${n}?`;ans=Math.floor(n/100)*100;explain=`The hundreds digit represents ${ans}.`;}
+ if(id==="money2"){let dimes=rnd(1,5),nickels=rnd(1,3);q=`What is the total value of ${dimes} dimes and ${nickels} nickels, in cents?`;ans=dimes*10+nickels*5;explain=`${dimes}×10 + ${nickels}×5 = ${ans} cents.`;}
+ if(id==="multiply3"){let a=rnd(2,10),b=rnd(2,10);q=`Calculate: ${a} × ${b}`;ans=a*b;explain=`${a} groups of ${b} make ${ans}.`;}
+ if(id==="fractions3"){let den=choice([2,3,4,6,8]);q=`A shape is split into ${den} equal parts. One part is what fraction? Enter the decimal.`;ans=Math.round(1/den*100)/100;explain=`One of ${den} equal parts is 1/${den}, about ${ans}.`;}
+ if(id==="area3"){let a=rnd(2,9),b=rnd(2,9);q=`Find the area of a rectangle ${a} units long and ${b} units wide.`;ans=a*b;explain=`Area = length × width = ${a}×${b}=${ans}.`;}
+ if(id==="multi4"){let a=rnd(100,600),b=rnd(50,300);q=`Calculate: ${a} + ${b}`;ans=a+b;explain=`Line up place values and add to get ${ans}.`;}
+ if(id==="fractions4"){let den=choice([2,3,4,5]),m=rnd(2,4);q=`Complete the equivalent fraction: 1/${den} = ${m}/?`;ans=den*m;explain=`Multiply both parts by ${m}: 1/${den} = ${m}/${ans}.`;}
+ if(id==="angles4"){let angle=choice([30,45,60,90,120,150]);q=`Is ${angle}° acute (1), right (2), or obtuse (3)?`;ans=angle<90?1:angle===90?2:3;explain=`${angle}° is ${ans===1?'acute':ans===2?'right':'obtuse'}.`;}
+ if(id==="decimal5"){let tenths=rnd(1,9),hundredths=rnd(0,9);q=`Write ${tenths} tenths and ${hundredths} hundredths as a decimal.`;ans=tenths/10+hundredths/100;explain=`${tenths}/10 + ${hundredths}/100 = ${ans}.`;}
+ if(id==="fraction5"){let den=choice([4,5,8,10]),a=rnd(1,den-2),b=rnd(1,den-a);q=`Add ${a}/${den} + ${b}/${den}. Enter the decimal value.`;ans=Math.round((a+b)/den*100)/100;explain=`Add numerators: ${a+b}/${den} = ${ans}.`;}
+ if(id==="volume5"){let a=rnd(2,6),b=rnd(2,6),c=rnd(2,6);q=`Find the volume of a box ${a} by ${b} by ${c}.`;ans=a*b*c;explain=`Volume = ${a}×${b}×${c} = ${ans}.`;}
  if(id==="ratios6"){
    let t=rnd(1,3);
    if(t===1){let a=rnd(2,5+d*2),b=rnd(2,6+d*2),m=rnd(2,4+d);q=`The ratio of red to blue beads is ${a}:${b}. If there are ${a*m} red beads, how many blue beads are there?`;ans=b*m;explain=`The ratio was multiplied by ${m}, so ${b} × ${m} = ${ans}.`;}
@@ -648,6 +704,7 @@ document.getElementById("jumpBtn").addEventListener("pointerdown",e=>{e.preventD
 document.addEventListener("keydown",e=>{if((e.code==="Space"||e.code==="ArrowUp")&&document.getElementById("dashModal").classList.contains("show")){e.preventDefault();dashJump()}});
 
 render();
+if(state.startingGrade===undefined||state.startingGrade===null)openGradeChooser();
 </script>
 </body>
 </html>
