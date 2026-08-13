@@ -41,11 +41,21 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;fl
 .small{font-size:13px;color:var(--muted)}
 .sectionHead{display:flex;justify-content:space-between;align-items:end;margin:24px 2px 11px;gap:12px}
 .sectionHead h3{font-size:22px;margin:0}.sectionHead p{margin:0;color:var(--muted);font-size:13px}
-.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.world{padding:16px;border:2px solid var(--line);border-radius:18px;background:#fff;text-align:left;transition:.18s}
-.world:hover{transform:translateY(-2px);border-color:#c8c2ff}
+.worlds{display:flex;flex-direction:column;gap:0;position:relative;padding:28px clamp(12px,8vw,90px) 40px;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#dff5ff 0 18%,#d9efd1 18% 72%,#b9d99f 72%);isolation:isolate}
+.worlds:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 14% 14%,rgba(255,255,255,.8) 0 5%,transparent 5.5%),radial-gradient(circle at 82% 38%,rgba(255,255,255,.55) 0 4%,transparent 4.5%),linear-gradient(155deg,transparent 62%,rgba(73,118,69,.18) 62% 66%,transparent 66%)}
+.worlds:after{content:"🏔️";position:absolute;right:3%;top:3px;font-size:82px;opacity:.24;z-index:-1}
+.mapStop{width:min(72%,560px);position:relative;display:flex;flex-direction:column;align-items:flex-start}
+.mapStop:nth-child(even){align-self:flex-end;align-items:flex-end}
+.mapStop:nth-child(odd){align-self:flex-start}
+.trailConnector{height:54px;width:48%;border-bottom:6px dashed rgba(105,87,245,.42);border-radius:0 0 70px 70px;transform:rotate(8deg);align-self:center}
+.mapStop:nth-child(even) .trailConnector{transform:rotate(-8deg)}
+.world{width:100%;padding:14px;border:3px solid rgba(255,255,255,.9);border-radius:22px;background:rgba(255,255,255,.94);text-align:left;transition:.18s;box-shadow:0 9px 22px rgba(43,81,70,.15);display:grid;grid-template-columns:68px 1fr;gap:12px;align-items:center;position:relative}
+.world:hover{transform:translateY(-3px) scale(1.01);border-color:#c8c2ff}
 .world.locked{opacity:.5;cursor:not-allowed}
-.world .icon{font-size:31px}.world h4{margin:8px 0 4px}.world p{font-size:13px;color:var(--muted);margin:0}
+.mapPin{width:64px;height:64px;border-radius:50% 50% 50% 12px;transform:rotate(-45deg);display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 6px 0 #4a3bc0;color:white;border:4px solid white}
+.mapPin span{transform:rotate(45deg);font-size:29px}.mapCopy{min-width:0}.mapNumber{position:absolute;right:11px;top:9px;font-size:11px;font-weight:950;color:#8a91a0}
+.world h4{margin:0 0 4px;padding-right:32px}.world p{font-size:13px;color:var(--muted);margin:0}
+.gradeTabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.gradeTabs button{border:1px solid var(--line);background:white;border-radius:11px;padding:8px 11px;font-weight:850;color:#555c6b}.gradeTabs button.active{background:var(--primary);color:white;border-color:var(--primary)}.gradeTabs button:disabled{opacity:.42;cursor:not-allowed}.gradeStatus{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 12px;padding:11px 13px;background:#f4f2ff;border-radius:13px;color:#50488b;font-size:13px}.gradeComplete{color:#087648;font-weight:900}
 .tag{display:inline-block;margin-top:10px;background:var(--soft);color:#5747d3;padding:5px 8px;border-radius:999px;font-size:12px;font-weight:850}
 .mastery{margin-top:10px}.masteryBar{height:7px;background:#eceef4;border-radius:99px;overflow:hidden}.masteryBar div{height:100%;background:var(--good)}
 .masteryTxt{font-size:11px;color:var(--muted);margin-top:4px}
@@ -59,6 +69,8 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;fl
 .shopItem .thing{font-size:54px}.shopItem h4{margin:7px 0 4px}.shopItem p{color:var(--muted);font-size:13px;min-height:36px}
 .shopItem button{border:0;background:var(--primary);color:white;padding:9px 12px;border-radius:12px;font-weight:850}
 .shopItem button.owned{background:#e9ecf4;color:#697080}
+.packGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.packCard{border:2px solid var(--line);border-radius:20px;padding:18px;background:linear-gradient(145deg,#fff,#f5f3ff);position:relative;overflow:hidden}.packCard h4{font-size:20px;margin:4px 0}.packCard p{font-size:13px;color:var(--muted);min-height:38px}.packIcons{font-size:31px;letter-spacing:4px;margin:8px 0}.packPrice{font-weight:950;color:#765500;background:#fff3bf;padding:6px 9px;border-radius:999px;display:inline-block}.packCard button{display:block;width:100%;margin-top:12px;border:0;background:var(--primary);color:white;border-radius:13px;padding:11px;font-weight:900}.packCard button:disabled{background:#b7bbc6;cursor:not-allowed}
+.shelfGroup{margin-bottom:20px}.shelfTitle{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #cab88e;padding:8px 5px;margin-bottom:10px}.shelfTitle h4{margin:0}.characterShelf{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;background:linear-gradient(#f4ead3 0 8px,#c79f69 8px 14px,#fff 14px);padding:22px 12px 12px;border-radius:15px}.characterCard{border:2px solid var(--line);border-radius:16px;padding:12px;text-align:center;background:white;position:relative}.characterCard.selected{border-color:var(--primary);box-shadow:0 0 0 3px #e0dcff}.characterEmoji{font-size:45px}.rarity{font-size:10px;font-weight:950;letter-spacing:.5px;text-transform:uppercase;padding:4px 7px;border-radius:999px;display:inline-block}.rarity.common{background:#edf0f4;color:#5d6572}.rarity.uncommon{background:#e5f7e9;color:#26723c}.rarity.rare{background:#e5efff;color:#215cb1}.rarity.epic{background:#f2e5ff;color:#7c2caf}.rarity.legendary{background:#fff0bd;color:#8c6200}.duplicate{position:absolute;right:7px;top:7px;background:#252c3b;color:white;border-radius:999px;padding:3px 7px;font-size:11px;font-weight:900}.characterActions{display:flex;gap:6px;margin-top:9px}.characterActions button{flex:1;border:0;border-radius:9px;padding:7px 4px;font-size:11px;font-weight:850;background:var(--primary);color:white}.characterActions .sell{background:#fff0e5;color:#9a4c12}.emptyShelf{text-align:center;color:var(--muted);padding:25px;grid-column:1/-1}.packReveal{text-align:center;padding:15px}.packReveal .big{font-size:90px}.packReveal h2{margin:5px}.packReveal button{border:0;background:var(--primary);color:#fff;border-radius:13px;padding:11px 20px;font-weight:900}
 .badges{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .badge{text-align:center;border-radius:17px;background:white;padding:14px;box-shadow:var(--shadow)}
 .badge .bi{font-size:32px;filter:grayscale(1);opacity:.28}.badge.earned .bi{filter:none;opacity:1}
@@ -97,8 +109,8 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 .dashControls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.jumpBtn{border:0;background:#ffb703;color:#4a3200;border-radius:14px;padding:14px 24px;font-weight:950;min-width:145px;touch-action:none}
 .dashMessage{text-align:center;min-height:24px;margin-top:10px;font-weight:800;color:#dff8ff}
 @media(max-width:520px){.dashStats{grid-template-columns:1fr}.dashControls{flex-direction:column}.jumpBtn{width:100%}}
-@media(max-width:800px){.grid2{grid-template-columns:1fr}.worlds,.shopGrid{grid-template-columns:1fr 1fr}.dashboardGrid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:520px){.worlds,.shopGrid{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.unit{grid-template-columns:50px 1fr}.unit button{grid-column:1/-1}.badges{grid-template-columns:1fr 1fr}.wrap{padding:13px}}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}.shopGrid,.packGrid{grid-template-columns:1fr 1fr}.characterShelf{grid-template-columns:repeat(3,1fr)}.dashboardGrid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.shopGrid,.packGrid{grid-template-columns:1fr}.characterShelf{grid-template-columns:1fr 1fr}.answers{grid-template-columns:1fr}.unit{grid-template-columns:50px 1fr}.unit button{grid-column:1/-1}.badges{grid-template-columns:1fr 1fr}.wrap{padding:13px}.worlds{padding:22px 10px 30px}.mapStop{width:92%}.world{grid-template-columns:55px 1fr;padding:11px}.mapPin{width:52px;height:52px}.mapPin span{font-size:24px}.trailConnector{height:42px}.worlds:after{font-size:60px}}
 </style>
 </head>
 <body>
@@ -116,7 +128,8 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 <div class="nav">
   <button class="active" onclick="showPage('home',this)">🏠 Home</button>
   <button onclick="showPage('path',this)">🗺️ Learning Path</button>
-  <button onclick="showPage('shop',this)">🛍️ Shop</button>
+  <button onclick="showPage('shop',this)">🎁 Packs</button>
+  <button onclick="showPage('characters',this)">🧸 Characters</button>
   <button onclick="showPage('arcade',this)">🎮 Arcade</button>
   <button onclick="showPage('parent',this)">📊 Parent Dashboard</button>
 </div>
@@ -139,8 +152,8 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
     </div>
   </div>
 
-  <div class="sectionHead"><h3>Adventure Worlds</h3><p>Practice any unlocked skill</p></div>
-  <div class="card"><div id="worlds" class="worlds"></div></div>
+  <div class="sectionHead"><h3>Adventure Worlds</h3><p>Climb from review through 12th grade</p></div>
+  <div class="card"><div id="gradeTabs" class="gradeTabs"></div><div id="gradeStatus" class="gradeStatus"></div><div id="worlds" class="worlds"></div></div>
 
   <div class="sectionHead"><h3>Badges</h3><p>Achievements earned while playing</p></div>
   <div id="badges" class="badges"></div>
@@ -155,10 +168,18 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 </section>
 
 <section id="shop" class="page">
-  <div class="sectionHead"><h3>Coin Shop</h3><p>Spend coins earned from correct answers</p></div>
+  <div class="sectionHead"><h3>Character Pack Shop</h3><p>Every pack contains one surprise character</p></div>
   <div class="card">
-    <div class="note" style="margin-bottom:14px">Cosmetics only — no math advantage. Current balance: <b><span id="shopCoins">0</span> coins</b>.</div>
-    <div id="shopGrid" class="shopGrid"></div>
+    <div class="note" style="margin-bottom:14px">Open packs with coins earned from math. Characters are collectible and give no math advantage. Balance: <b><span id="shopCoins">0</span> coins</b>.</div>
+    <div id="packGrid" class="packGrid"></div>
+  </div>
+</section>
+
+<section id="characters" class="page">
+  <div class="sectionHead"><h3>Characters</h3><p>Select a companion or sell duplicates</p></div>
+  <div class="card">
+    <div class="note" style="margin-bottom:14px">Your shelf is organized by pack, then rarity. Keep at least one of every character; extra copies can be sold for coins.</div>
+    <div id="characterShelves"></div>
   </div>
 </section>
 
@@ -230,35 +251,76 @@ const worldDefs=[
 {id:"equations7",icon:"🤖",title:"Algebra Basecamp",grade:"7th Grade",desc:"Multi-step equations & inequalities",lesson:"Simplify first, then undo operations in reverse order.",example:"Example: 3x + 5 = 20 → 3x = 15 → x = 5."},
 {id:"geometry7",icon:"📐",title:"Geometry Peak",grade:"7th Grade",desc:"Angles, circles & scale drawings",lesson:"Complementary angles total 90°. Supplementary angles total 180°. Circle area = πr².",example:"Example: if one supplementary angle is 125°, the other is 55°."},
 {id:"stats7",icon:"🎲",title:"Chance Canyon",grade:"7th Grade",desc:"Probability, samples & data",lesson:"Probability = favorable outcomes ÷ total outcomes. Data from random samples can estimate a population.",example:"Example: 3 red tiles out of 10 gives P(red) = 3/10 = 0.3."},
-{id:"boss",icon:"🏆",title:"Summit Challenge",grade:"Boss Level",desc:"Mixed 6th + 7th grade challenge",lesson:"Choose a strategy, estimate when helpful, solve carefully, and check whether the answer makes sense.",example:"This level mixes the entire mountain."}
+{id:"boss",icon:"🏆",title:"7th Grade Summit",grade:"7th Grade",level:7,desc:"Mixed 6th + 7th grade challenge",lesson:"Choose a strategy, estimate when helpful, solve carefully, and check whether the answer makes sense.",example:"This level mixes the entire mountain."},
+{id:"linear8",icon:"📈",title:"Linear Trail",grade:"8th Grade",level:8,desc:"Slope and linear equations",lesson:"Slope is change in y divided by change in x. A line can be written y = mx + b.",example:"From (1,3) to (3,7), slope = (7−3) ÷ (3−1) = 2."},
+{id:"functions8",icon:"🧮",title:"Function Forest",grade:"8th Grade",level:8,desc:"Functions and input-output rules",lesson:"A function assigns exactly one output to every input. Substitute the input into the rule.",example:"If f(x)=3x+2, then f(4)=14."},
+{id:"pythag8",icon:"📐",title:"Pythagorean Peak",grade:"8th Grade",level:8,desc:"Right triangles and distance",lesson:"For a right triangle, a² + b² = c², where c is the hypotenuse.",example:"Legs 3 and 4 give c²=9+16=25, so c=5."},
+{id:"algebra9",icon:"🔣",title:"Algebra Ascent",grade:"9th Grade",level:9,desc:"Multi-step linear equations",lesson:"Simplify both sides, collect variable terms, then isolate the variable.",example:"4x+3=2x+13 → 2x=10 → x=5."},
+{id:"systems9",icon:"🛤️",title:"Systems Crossing",grade:"9th Grade",level:9,desc:"Systems of two equations",lesson:"A solution to a system makes both equations true. Use substitution or elimination.",example:"x+y=9 and x−y=1 → add them: 2x=10, so x=5."},
+{id:"quadratics9",icon:"🌉",title:"Quadratic Bridge",grade:"9th Grade",level:9,desc:"Quadratic patterns and roots",lesson:"A root makes a quadratic equal zero. Factoring can reveal the roots.",example:"x²−9=(x−3)(x+3), so the roots are 3 and −3."},
+{id:"angles10",icon:"📏",title:"Proof Path",grade:"10th Grade",level:10,desc:"Geometry reasoning and angles",lesson:"Use known angle relationships and clear logical steps to justify a result.",example:"Vertical angles are congruent; a linear pair totals 180°."},
+{id:"similarity10",icon:"🔺",title:"Similarity Summit",grade:"10th Grade",level:10,desc:"Similar figures and scale factors",lesson:"Corresponding sides of similar figures have the same scale factor.",example:"If 3 becomes 12, the scale factor is 4."},
+{id:"trig10",icon:"🧭",title:"Trig Lookout",grade:"10th Grade",level:10,desc:"Right-triangle trigonometry",lesson:"SOH-CAH-TOA connects an angle to side ratios in a right triangle.",example:"sin θ = opposite ÷ hypotenuse."},
+{id:"poly11",icon:"🧱",title:"Polynomial Plateau",grade:"11th Grade",level:11,desc:"Polynomial operations",lesson:"Combine like terms and use distribution carefully when multiplying polynomials.",example:"(x+2)(x+3)=x²+5x+6."},
+{id:"expo11",icon:"🚀",title:"Exponential Rise",grade:"11th Grade",level:11,desc:"Exponential growth and decay",lesson:"In y=a·bˣ, a is the starting value and b is the growth or decay factor.",example:"Starting at 5 and doubling 3 times gives 5·2³=40."},
+{id:"stats11",icon:"📊",title:"Data Ridge",grade:"11th Grade",level:11,desc:"Statistics and variation",lesson:"Mean describes center; range and standard deviation describe spread.",example:"The mean is the sum of the values divided by their count."},
+{id:"compose12",icon:"⚙️",title:"Function Workshop",grade:"12th Grade",level:12,desc:"Function composition",lesson:"For f(g(x)), evaluate the inside function g first, then use its result in f.",example:"If f(x)=x+2 and g(x)=3x, then f(g(4))=14."},
+{id:"trig12",icon:"🌐",title:"Unit Circle Skyway",grade:"12th Grade",level:12,desc:"Trigonometric values",lesson:"The unit circle connects angles to cosine and sine coordinates.",example:"At 90°, cosine is 0 and sine is 1."},
+{id:"sequence12",icon:"🔁",title:"Sequence Summit",grade:"12th Grade",level:12,desc:"Arithmetic and geometric sequences",lesson:"Arithmetic sequences add a constant difference. Geometric sequences multiply by a constant ratio.",example:"For 4,7,10,… the common difference is 3."}
 ];
 
-const shopItems=[
-{id:"fox",thing:"🦊",name:"Fox Explorer",price:0,desc:"Your original mountain guide."},
-{id:"panda",thing:"🐼",name:"Panda Scholar",price:60,desc:"Calm, focused, mathematically dangerous."},
-{id:"owl",thing:"🦉",name:"Owl Professor",price:90,desc:"Wise enough to check every answer twice."},
-{id:"dragon",thing:"🐉",name:"Dragon Master",price:140,desc:"For serious algebra climbers."},
-{id:"unicorn",thing:"🦄",name:"Unicorn Legend",price:180,desc:"Maximum mathematical sparkle."},
-{id:"robot",thing:"🤖",name:"Equation Bot",price:120,desc:"Built to solve for x."}
+const characterPacks=[
+ {id:"forest",name:"Forest Animal Pack",icon:"🌲",price:10,desc:"Friendly creatures from the woods and mountains.",preview:"🦊 🐿️ 🦉 🐻"},
+ {id:"mystical",name:"Mystical Pack",icon:"✨",price:15,desc:"Magical companions, ancient beasts and legends.",preview:"🦄 🐉 🧚 🔥"},
+ {id:"ocean",name:"Ocean Pack",icon:"🌊",price:12,desc:"Colorful characters from reefs and deep water.",preview:"🐠 🐙 🐬 🐋"},
+ {id:"cosmic",name:"Cosmic Pack",icon:"🌌",price:20,desc:"Visitors and explorers from beyond the stars.",preview:"👽 🤖 👾 🧑‍🚀"}
 ];
+const characters=[
+ {id:"fox",pack:"forest",thing:"🦊",name:"Trail Fox",rarity:"common"},{id:"rabbit",pack:"forest",thing:"🐇",name:"Quick Rabbit",rarity:"common"},{id:"squirrel",pack:"forest",thing:"🐿️",name:"Acorn Scout",rarity:"uncommon"},{id:"panda",pack:"forest",thing:"🐼",name:"Bamboo Panda",rarity:"uncommon"},{id:"owl",pack:"forest",thing:"🦉",name:"Wise Owl",rarity:"rare"},{id:"deer",pack:"forest",thing:"🦌",name:"Meadow Deer",rarity:"rare"},{id:"bear",pack:"forest",thing:"🐻",name:"Summit Bear",rarity:"epic"},
+ {id:"fairy",pack:"mystical",thing:"🧚",name:"Glitter Fairy",rarity:"uncommon"},{id:"unicorn",pack:"mystical",thing:"🦄",name:"Moon Unicorn",rarity:"rare"},{id:"mermaid",pack:"mystical",thing:"🧜",name:"River Mermaid",rarity:"rare"},{id:"dragon",pack:"mystical",thing:"🐉",name:"Diablo Dragon",rarity:"epic"},{id:"griffin",pack:"mystical",thing:"🦅",name:"Golden Griffin",rarity:"epic"},{id:"phoenix",pack:"mystical",thing:"🔥",name:"Solar Phoenix",rarity:"legendary"},
+ {id:"fish",pack:"ocean",thing:"🐠",name:"Reef Fish",rarity:"common"},{id:"crab",pack:"ocean",thing:"🦀",name:"Clever Crab",rarity:"common"},{id:"octopus",pack:"ocean",thing:"🐙",name:"Puzzle Octopus",rarity:"uncommon"},{id:"dolphin",pack:"ocean",thing:"🐬",name:"Speedy Dolphin",rarity:"rare"},{id:"shark",pack:"ocean",thing:"🦈",name:"Equation Shark",rarity:"epic"},{id:"whale",pack:"ocean",thing:"🐋",name:"Ancient Whale",rarity:"legendary"},
+ {id:"alien",pack:"cosmic",thing:"👽",name:"Little Alien",rarity:"common"},{id:"robot",pack:"cosmic",thing:"🤖",name:"Equation Bot",rarity:"uncommon"},{id:"invader",pack:"cosmic",thing:"👾",name:"Pixel Visitor",rarity:"rare"},{id:"astronaut",pack:"cosmic",thing:"🧑‍🚀",name:"Math Astronaut",rarity:"rare"},{id:"satellite",pack:"cosmic",thing:"🛰️",name:"Orbit Scout",rarity:"epic"},{id:"star",pack:"cosmic",thing:"🌟",name:"Living Star",rarity:"legendary"}
+];
+const rarityOrder={common:0,uncommon:1,rare:2,epic:3,legendary:4};
+const rarityWeights={common:45,uncommon:28,rare:17,epic:8,legendary:2};
+const sellValues={common:2,uncommon:3,rare:5,epic:8,legendary:12};
 
 let state=JSON.parse(localStorage.getItem("mdMathQuestV2")||'{"xp":0,"coins":0,"streak":0,"correct":0,"played":0,"name":"","avatar":"fox","owned":["fox"],"skills":{},"completed":{}}');
 state.dashBest=state.dashBest||0;
 state.dashWins=state.dashWins||0;
+state.characterCounts=state.characterCounts||{fox:1};
+state.selectedCharacter=state.selectedCharacter||state.avatar||"fox";
+if(state.owned)state.owned.forEach(id=>{if(characters.some(c=>c.id===id)&&!state.characterCounts[id])state.characterCounts[id]=1});
+if(!state.characterCounts[state.selectedCharacter])state.selectedCharacter="fox";
 for(const w of worldDefs){if(!state.skills[w.id])state.skills[w.id]={attempts:0,correct:0,difficulty:1};}
 let game={world:null,questions:[],index:0,correct:0,lessonPhase:true,answered:false};
+let activeGrade=7;
 
 const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 const choice=a=>a[rnd(0,a.length-1)];
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
 const fmt=n=>Number.isInteger(Number(n))?String(Number(n)):String(Math.round(Number(n)*100)/100);
 const wdef=id=>worldDefs.find(w=>w.id===id);
-function avatarThing(){return (shopItems.find(x=>x.id===state.avatar)||shopItems[0]).thing}
-function save(){localStorage.setItem("mdMathQuestV2",JSON.stringify(state));render()}
+function avatarThing(){return (characters.find(x=>x.id===state.selectedCharacter)||characters[0]).thing}
+function save(){let bonus=checkGradeRewards();localStorage.setItem("mdMathQuestV2",JSON.stringify(state));render();if(bonus)setTimeout(()=>alert(`🎓 Grade ${bonus} complete before June 15! You earned 100 bonus coins.`),50)}
 function level(){return Math.floor(state.xp/100)+1}
 function rank(){let l=level();return l>=10?"Diablo Math Legend":l>=7?"Summit Solver":l>=4?"Trail Mathematician":"Trail Starter"}
 function mastery(id){let s=state.skills[id];if(!s||s.attempts===0)return 0;return Math.round(s.correct/s.attempts*100)}
-function unlocked(w,i){if(w.id==="boss")return state.correct>=35;return true}
+function worldGrade(w){if(w.level)return w.level;if(w.id.endsWith("6"))return 6;return 7}
+function gradeWorlds(g){return worldDefs.filter(w=>worldGrade(w)===g)}
+function gradeComplete(g){
+ const units=gradeWorlds(g).filter(w=>w.id!=="boss");
+ const skillsDone=units.length>0&&units.every(w=>mastery(w.id)>=80);
+ return g===7?skillsDone&&(state.completed.boss||0)>=1:skillsDone;
+}
+function gradeUnlocked(g){return g<=7||gradeComplete(g-1)}
+function unlocked(w,i){let g=worldGrade(w);if(!gradeUnlocked(g))return false;if(w.id==="boss")return state.correct>=35&&gradeWorlds(7).filter(x=>x.id!=="boss").every(x=>mastery(x.id)>=80);return true}
+function schoolYearDeadline(){let n=new Date(),year=n.getMonth()>=6?n.getFullYear()+1:n.getFullYear();return new Date(year,5,15,23,59,59)}
+function checkGradeRewards(){
+ state.gradeRewards=state.gradeRewards||{};
+ for(let g=7;g<=12;g++)if(gradeComplete(g)&&!state.gradeRewards[g]){let early=new Date()<=schoolYearDeadline();state.gradeRewards[g]=early?"earned":"late";if(early){state.coins+=100;return g}}
+ return 0;
+}
 
 function render(){
  document.getElementById("xp").textContent=state.xp;
@@ -276,15 +338,22 @@ function render(){
  document.getElementById("hello").textContent=state.name?`Ready to climb, ${state.name}?`:"Ready to climb?";
  document.getElementById("rank").textContent=rank();
  let p=state.xp%100;document.getElementById("levelBar").style.width=p+"%";document.getElementById("levelText").textContent=`${p} / 100 XP to Level ${level()+1}`;
- renderWorlds();renderBadges();renderPath();renderShop();renderDashboard();
+ renderWorlds();renderBadges();renderPath();renderPackShop();renderCharacters();renderDashboard();
 }
 function showPage(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
 function saveName(){state.name=document.getElementById("nameInput").value.trim().slice(0,20);save();}
 
+function setGrade(g){if(!gradeUnlocked(g))return;activeGrade=g;renderWorlds()}
 function renderWorlds(){
- document.getElementById("worlds").innerHTML=worldDefs.map((w,i)=>{
+ const grades=[6,7,8,9,10,11,12];
+ document.getElementById("gradeTabs").innerHTML=grades.map(g=>`<button class="${activeGrade===g?'active':''}" ${!gradeUnlocked(g)?'disabled':''} onclick="setGrade(${g})">${g===6?'6th Review':(!gradeUnlocked(g)?'🔒 ':'')+g+'th Grade'}</button>`).join("");
+ const complete=gradeComplete(activeGrade),next=activeGrade<12?activeGrade+1:null;
+ document.getElementById("gradeStatus").innerHTML=complete?`<span class="gradeComplete">✅ Grade ${activeGrade} complete!</span><span>${next?'Grade '+next+' is unlocked.':'You reached the final summit!'}</span>`:`<span>Reach at least <b>80% mastery</b> in every stop${activeGrade===7?' and finish the Summit Challenge':''}.</span><span>🎓 Early bonus: <b>100 coins</b></span>`;
+ const shown=gradeWorlds(activeGrade);
+ document.getElementById("worlds").innerHTML=shown.map((w,i)=>{
    let lock=!unlocked(w,i),m=mastery(w.id);
-   return `<button class="world ${lock?'locked':''}" ${lock?'disabled':''} onclick="startWorld('${w.id}')"><div class="icon">${w.icon}</div><h4>${w.title}</h4><p>${w.desc}</p><span class="tag">${lock?'🔒 35 correct to unlock':w.grade}</span><div class="mastery"><div class="masteryBar"><div style="width:${m}%"></div></div><div class="masteryTxt">${m}% mastery • difficulty ${state.skills[w.id].difficulty}/3</div></div></button>`;
+   let lockText=w.id==="boss"?'Master the Grade 7 stops first':'Finish the previous grade';
+   return `<div class="mapStop"><button class="world ${lock?'locked':''}" ${lock?'disabled':''} onclick="startWorld('${w.id}')"><div class="mapPin"><span>${w.icon}</span></div><div class="mapCopy"><span class="mapNumber">STOP ${i+1}</span><h4>${w.title}</h4><p>${w.desc}</p><span class="tag">${lock?'🔒 '+lockText:w.grade}</span><div class="mastery"><div class="masteryBar"><div style="width:${m}%"></div></div><div class="masteryTxt">${w.id==='boss'?(state.completed.boss||0)+' summit wins':m+'% mastery • difficulty '+state.skills[w.id].difficulty+'/3'}</div></div></div></button>${i<shown.length-1?'<div class="trailConnector"></div>':''}</div>`;
  }).join("");
 }
 function renderBadges(){
@@ -301,18 +370,40 @@ function renderPath(){
    return `<div class="unit"><div class="unitNum">${i+1}</div><div><h4>${w.icon} ${w.title}</h4><p>${w.grade} • ${w.desc} • ${m}% mastery</p></div><button ${lock?'disabled style="opacity:.4"':''} onclick="startWorld('${id}')">${m>=80?'Review':'Learn'}</button></div>`;
  }).join("");
 }
-function renderShop(){
- document.getElementById("shopGrid").innerHTML=shopItems.map(i=>{
-   let owned=state.owned.includes(i.id),active=state.avatar===i.id;
-   let label=active?"Equipped":owned?"Equip":`${i.price} 🪙`;
-   return `<div class="shopItem"><div class="thing">${i.thing}</div><h4>${i.name}</h4><p>${i.desc}</p><button class="${active?'owned':''}" onclick="buyOrEquip('${i.id}')">${label}</button></div>`;
+function renderPackShop(){
+ document.getElementById("packGrid").innerHTML=characterPacks.map(p=>`<div class="packCard"><div style="font-size:38px">${p.icon}</div><h4>${p.name}</h4><p>${p.desc}</p><div class="packIcons">${p.preview}</div><span class="packPrice">🪙 ${p.price} coins</span><button ${state.coins<p.price?'disabled':''} onclick="openPack('${p.id}')">${state.coins>=p.price?'Open pack':'Need '+(p.price-state.coins)+' more'}</button></div>`).join("");
+}
+function weightedCharacter(packId){
+ const pool=characters.filter(c=>c.pack===packId);let bag=[];
+ pool.forEach(c=>{for(let i=0;i<rarityWeights[c.rarity];i++)bag.push(c)});
+ return choice(bag);
+}
+function openPack(packId){
+ const pack=characterPacks.find(p=>p.id===packId);
+ if(state.coins<pack.price){alert(`You need ${pack.price-state.coins} more coins.`);return}
+ state.coins-=pack.price;const won=weightedCharacter(packId);
+ state.characterCounts[won.id]=(state.characterCounts[won.id]||0)+1;save();
+ document.getElementById("gameTitle").textContent=`${pack.icon} ${pack.name}`;
+ document.getElementById("gameMeta").textContent="Pack opened!";
+ document.getElementById("gameProgress").style.width="100%";
+ document.getElementById("gameBody").innerHTML=`<div class="packReveal"><div class="big">${won.thing}</div><span class="rarity ${won.rarity}">${won.rarity}</span><h2>${won.name}</h2><p>${state.characterCounts[won.id]>1?'Duplicate! You now have '+state.characterCounts[won.id]+'. You can sell extras from Characters.':'New character added to your shelf!'}</p><button onclick="closeGame()">Add to shelf</button></div>`;
+ document.getElementById("modal").classList.add("show");
+}
+function renderCharacters(){
+ const root=document.getElementById("characterShelves");
+ root.innerHTML=characterPacks.map(pack=>{
+   const owned=characters.filter(c=>c.pack===pack.id&&(state.characterCounts[c.id]||0)>0).sort((a,b)=>rarityOrder[b.rarity]-rarityOrder[a.rarity]||a.name.localeCompare(b.name));
+   return `<div class="shelfGroup"><div class="shelfTitle"><h4>${pack.icon} ${pack.name}</h4><span class="small">${owned.length} / ${characters.filter(c=>c.pack===pack.id).length} found</span></div><div class="characterShelf">${owned.length?owned.map(c=>characterCard(c)).join(''):'<div class="emptyShelf">No characters from this pack yet.</div>'}</div></div>`;
  }).join("");
 }
-function buyOrEquip(id){
- let item=shopItems.find(x=>x.id===id);
- if(state.owned.includes(id)){state.avatar=id;save();return}
- if(state.coins>=item.price){state.coins-=item.price;state.owned.push(id);state.avatar=id;save()}
- else alert(`You need ${item.price-state.coins} more coins.`);
+function characterCard(c){
+ const count=state.characterCounts[c.id]||0,selected=state.selectedCharacter===c.id;
+ return `<div class="characterCard ${selected?'selected':''}">${count>1?`<span class="duplicate">×${count}</span>`:''}<div class="characterEmoji">${c.thing}</div><b>${c.name}</b><div><span class="rarity ${c.rarity}">${c.rarity}</span></div><div class="characterActions"><button onclick="selectCharacter('${c.id}')">${selected?'Selected':'Select'}</button>${count>1?`<button class="sell" onclick="sellCharacter('${c.id}')">Sell +${sellValues[c.rarity]}</button>`:''}</div></div>`;
+}
+function selectCharacter(id){if((state.characterCounts[id]||0)<1)return;state.selectedCharacter=id;save()}
+function sellCharacter(id){
+ const c=characters.find(x=>x.id===id),count=state.characterCounts[id]||0;if(count<=1)return;
+ state.characterCounts[id]--;state.coins+=sellValues[c.rarity];save();
 }
 function renderDashboard(){
  let acc=state.played?Math.round(state.correct/state.played*100):0;
@@ -390,6 +481,21 @@ function makeQ(id){
    if(t===2){let trials=choice([20,40,50]),success=rnd(5,Math.floor(trials*.8));q=`Green appeared ${success} times in ${trials} spins. What is the experimental probability as a decimal?`;ans=Math.round(success/trials*100)/100;explain=`Experimental probability = ${success}/${trials}.`;}
    if(t===3){let vals=Array.from({length:5},()=>rnd(2,8+d*2)),sum=vals.reduce((a,b)=>a+b,0);q=`Find the mean: ${vals.join(", ")}`;ans=Math.round(sum/5*100)/100;explain=`Add the values (${sum}) and divide by 5.`;}
  }
+ if(id==="linear8"){let m=rnd(2,6),x1=rnd(0,4),x2=x1+rnd(1,4),y1=rnd(1,8),y2=y1+m*(x2-x1);q=`Find the slope of the line through (${x1}, ${y1}) and (${x2}, ${y2}).`;ans=m;explain=`Slope = (${y2}−${y1}) ÷ (${x2}−${x1}) = ${m}.`;}
+ if(id==="functions8"){let a=rnd(2,7),b=rnd(1,9),x=rnd(2,8);q=`If f(x) = ${a}x + ${b}, find f(${x}).`;ans=a*x+b;explain=`Substitute ${x}: ${a}(${x}) + ${b} = ${ans}.`;}
+ if(id==="pythag8"){let triple=choice([[3,4,5],[5,12,13],[6,8,10],[8,15,17]]);q=`A right triangle has legs ${triple[0]} and ${triple[1]}. Find the hypotenuse.`;ans=triple[2];explain=`c = √(${triple[0]}² + ${triple[1]}²) = ${triple[2]}.`;}
+ if(id==="algebra9"){let x=rnd(2,10),a=rnd(3,7),b=rnd(1,8),c=rnd(1,a-1),right=(a-c)*x+b;q=`Solve: ${a}x + ${b} = ${c}x + ${right}`;ans=x;explain=`Collect x terms and constants to get x = ${x}.`;}
+ if(id==="systems9"){let x=rnd(2,9),y=rnd(1,8);q=`Solve for x: x + y = ${x+y} and x − y = ${x-y}.`;ans=x;explain=`Add the equations: 2x = ${2*x}, so x = ${x}.`;}
+ if(id==="quadratics9"){let root=rnd(2,10);q=`What is the positive solution of x² = ${root*root}?`;ans=root;explain=`The solutions are ±${root}; the positive solution is ${root}.`;}
+ if(id==="angles10"){let a=rnd(35,145);q=`An angle forms a linear pair with a ${a}° angle. Find its measure.`;ans=180-a;explain=`A linear pair totals 180°, so 180−${a}=${180-a}.`;}
+ if(id==="similarity10"){let small=rnd(2,7),factor=rnd(2,6);q=`A side of length ${small} is enlarged by a scale factor of ${factor}. Find the new length.`;ans=small*factor;explain=`Multiply by the scale factor: ${small}×${factor}=${ans}.`;}
+ if(id==="trig10"){let triple=choice([[3,4,5],[5,12,13],[8,15,17]]);q=`For an angle with opposite side ${triple[0]} and hypotenuse ${triple[2]}, find sin θ as a decimal.`;ans=Math.round(triple[0]/triple[2]*100)/100;explain=`sin θ = opposite ÷ hypotenuse = ${triple[0]}/${triple[2]} ≈ ${ans}.`;}
+ if(id==="poly11"){let x=rnd(2,6),a=rnd(1,5),b=rnd(1,6);q=`Evaluate (x + ${a})(x + ${b}) when x = ${x}.`;ans=(x+a)*(x+b);explain=`Substitute ${x}: (${x+a})(${x+b}) = ${ans}.`;}
+ if(id==="expo11"){let start=rnd(2,8),base=choice([2,3]),power=rnd(2,4);q=`A quantity starts at ${start} and is multiplied by ${base} each period. Find it after ${power} periods.`;ans=start*base**power;explain=`Use ${start}·${base}^${power} = ${ans}.`;}
+ if(id==="stats11"){let vals=Array.from({length:5},()=>rnd(5,20)),sum=vals.reduce((a,b)=>a+b,0);q=`Find the mean: ${vals.join(", ")}`;ans=Math.round(sum/5*100)/100;explain=`The sum is ${sum}; divide by 5 to get ${ans}.`;}
+ if(id==="compose12"){let a=rnd(2,5),b=rnd(1,6),x=rnd(2,7);q=`If f(x)=x+${b} and g(x)=${a}x, find f(g(${x})).`;ans=a*x+b;explain=`g(${x})=${a*x}, then f(${a*x})=${a*x}+${b}=${ans}.`;}
+ if(id==="trig12"){let item=choice([[0,0],[30,.5],[90,1],[180,0],[270,-1],[360,0]]);q=`What is sin(${item[0]}°)?`;ans=item[1];explain=`On the unit circle, sin(${item[0]}°) = ${item[1]}.`;}
+ if(id==="sequence12"){let first=rnd(2,10),diff=rnd(2,7),n=rnd(4,9);q=`An arithmetic sequence starts at ${first} with common difference ${diff}. Find term ${n}.`;ans=first+(n-1)*diff;explain=`aₙ = ${first} + (${n}−1)·${diff} = ${ans}.`;}
  return {q,ans,explain,skill:id};
 }
 function optionsFor(ans){
