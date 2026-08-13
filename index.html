@@ -209,10 +209,11 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 <section id="arcade" class="page">
   <div class="sectionHead"><h3>Summit Arcade</h3><p>Spend XP on a game break</p></div>
   <div class="arcadeGrid"><div class="card minigameHero">
-    <h3>🏃 Mountain Dash</h3>
+    <h3>🏃 Diablo Dash</h3>
+    <div style="font-weight:900;color:#fff3bf;margin:-2px 0 7px">Geometry Dash-style minigame</div>
     <p>Race across Mt. Diablo and jump over sharp spikes and roaming monsters. Reach the summit and collect trail coins along the way.</p>
     <div class="costPill">⚡ 50 XP per run</div><br>
-    <button class="cta" id="dashPlayBtn" onclick="buyDashRun()">Play Mountain Dash</button>
+    <button class="cta" id="dashPlayBtn" onclick="buyDashRun()">Play Diablo Dash</button>
     <div class="dashStats">
       <div class="dashStat"><b id="dashBest">0</b><span>Best distance</span></div>
       <div class="dashStat"><b id="dashWins">0</b><span>Summits reached</span></div>
@@ -227,7 +228,7 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
   </div></div>
   <div class="card" style="margin-top:14px">
     <b>How to play</b>
-    <p class="small"><b>Mountain Dash:</b> tap or press Space/↑ to jump. <b>Summit Stacker:</b> tap or press Space to drop a block. Both games work on phones and computers.</p>
+    <p class="small"><b>Diablo Dash:</b> tap or press Space/↑ to jump over spikes and monsters. <b>Summit Stacker:</b> tap or press Space to drop a block. Both games work on phones and computers.</p>
   </div>
 </section>
 
@@ -259,11 +260,11 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 <div class="modal" id="dashModal">
   <div class="dashGame">
     <div class="dashTop">
-      <div><b>🏃 Mountain Dash</b><div class="small" style="color:#bfe3ed">Reach 1,000 meters</div></div>
+      <div><b>🏃 Diablo Dash</b><div class="small" style="color:#bfe3ed">Geometry Dash-style • Reach 1,000 meters</div></div>
       <button class="close" onclick="closeDash()">✕</button>
     </div>
     <div class="dashReadout"><span>Distance: <b id="dashDistance">0</b>m</span><span>Trail coins: <b id="dashCollected">0</b></span></div>
-    <canvas id="dashCanvas" width="800" height="360" aria-label="Mountain Dash game"></canvas>
+    <canvas id="dashCanvas" width="800" height="360" aria-label="Diablo Dash jumping game"></canvas>
     <div class="dashControls"><span class="small" style="color:#bfe3ed">Tap or press Space to jump</span><button class="jumpBtn" id="jumpBtn">⬆ JUMP</button></div>
     <div class="dashMessage" id="dashMessage"></div>
   </div>
@@ -396,7 +397,7 @@ function render(){
  document.getElementById("dashBest").textContent=state.dashBest+"m";
  document.getElementById("dashWins").textContent=state.dashWins;
  document.getElementById("dashPlayBtn").disabled=state.xp<50;
- document.getElementById("dashPlayBtn").textContent=state.xp>=50?"Play Mountain Dash":"Need "+(50-state.xp)+" more XP";
+ document.getElementById("dashPlayBtn").textContent=state.xp>=50?"Play Diablo Dash":"Need "+(50-state.xp)+" more XP";
  document.getElementById("stackBest").textContent=state.stackBest+" blocks";document.getElementById("stackGames").textContent=state.stackGames;
  document.getElementById("stackPlayBtn").disabled=state.xp<35;document.getElementById("stackPlayBtn").textContent=state.xp>=35?"Play Summit Stacker":"Need "+(35-state.xp)+" more XP";
  document.getElementById("avatar").textContent=avatarThing();
@@ -668,7 +669,7 @@ function closeGame(){document.getElementById("modal").classList.remove("show")}
 
 let dash=null,dashFrame=0,dashLast=0;
 function buyDashRun(){
- if(state.xp<50){alert(`You need ${50-state.xp} more XP to play Mountain Dash.`);return}
+ if(state.xp<50){alert(`You need ${50-state.xp} more XP to play Diablo Dash.`);return}
  state.xp-=50;save();startDash();
 }
 function startDash(){
