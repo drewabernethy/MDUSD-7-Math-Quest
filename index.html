@@ -84,6 +84,19 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px;bor
 .nameRow{display:flex;gap:8px;margin-top:10px}.nameRow input{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px}
 .nameRow button{border:0;background:var(--primary);color:white;border-radius:12px;padding:10px 13px;font-weight:850}
 footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
+
+.minigameHero{background:linear-gradient(135deg,#103f66,#137d87);color:#fff;overflow:hidden;position:relative}
+.minigameHero:after{content:"🏔️";position:absolute;right:12px;bottom:-48px;font-size:150px;opacity:.16}
+.minigameHero h3{font-size:27px;margin:0 0 7px}.minigameHero p{max-width:650px;line-height:1.5;color:#e7fbff}
+.costPill{display:inline-block;background:#fff3bf;color:#765500;border-radius:999px;padding:7px 11px;font-weight:900;margin:5px 0 14px}
+.dashStats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.dashStat{background:rgba(255,255,255,.13);border-radius:14px;padding:12px}.dashStat b{display:block;font-size:22px}.dashStat span{font-size:12px;color:#d9f5f8}
+.dashGame{width:min(850px,100%);background:#10283c;color:white;border-radius:24px;padding:18px;box-shadow:0 25px 90px rgba(0,0,0,.3)}
+.dashTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.dashReadout{display:flex;gap:12px;flex-wrap:wrap;font-weight:850;font-size:13px}
+#dashCanvas{width:100%;height:auto;display:block;border-radius:15px;background:#8ed8ef;touch-action:none}
+.dashControls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.jumpBtn{border:0;background:#ffb703;color:#4a3200;border-radius:14px;padding:14px 24px;font-weight:950;min-width:145px;touch-action:none}
+.dashMessage{text-align:center;min-height:24px;margin-top:10px;font-weight:800;color:#dff8ff}
+@media(max-width:520px){.dashStats{grid-template-columns:1fr}.dashControls{flex-direction:column}.jumpBtn{width:100%}}
 @media(max-width:800px){.grid2{grid-template-columns:1fr}.worlds,.shopGrid{grid-template-columns:1fr 1fr}.dashboardGrid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.worlds,.shopGrid{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.unit{grid-template-columns:50px 1fr}.unit button{grid-column:1/-1}.badges{grid-template-columns:1fr 1fr}.wrap{padding:13px}}
 </style>
@@ -104,6 +117,7 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
   <button class="active" onclick="showPage('home',this)">🏠 Home</button>
   <button onclick="showPage('path',this)">🗺️ Learning Path</button>
   <button onclick="showPage('shop',this)">🛍️ Shop</button>
+  <button onclick="showPage('arcade',this)">🎮 Arcade</button>
   <button onclick="showPage('parent',this)">📊 Parent Dashboard</button>
 </div>
 
@@ -148,6 +162,26 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
   </div>
 </section>
 
+
+<section id="arcade" class="page">
+  <div class="sectionHead"><h3>Summit Arcade</h3><p>Trade math coins for a game break</p></div>
+  <div class="card minigameHero">
+    <h3>🏃 Mountain Dash</h3>
+    <p>Race across Mt. Diablo, jump over rocks, and grab trail coins. Each run costs 50 coins. Reach the summit to earn a bonus based on the coins you collect.</p>
+    <div class="costPill">🪙 50 coins per run</div><br>
+    <button class="cta" id="dashPlayBtn" onclick="buyDashRun()">Play Mountain Dash</button>
+    <div class="dashStats">
+      <div class="dashStat"><b id="dashBest">0</b><span>Best distance</span></div>
+      <div class="dashStat"><b id="dashWins">0</b><span>Summits reached</span></div>
+      <div class="dashStat"><b id="arcadeCoins">0</b><span>Coins available</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <b>How to play</b>
+    <p class="small">Tap the screen or the JUMP button on iPhone. On a computer, press Space or ↑. Clear the rocks and collect as many trail coins as you can before reaching the summit.</p>
+  </div>
+</section>
+
 <section id="parent" class="page">
   <div class="sectionHead"><h3>Parent Dashboard</h3><p>Progress stored only in this browser</p></div>
   <div class="dashboardGrid">
@@ -169,6 +203,20 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
     <div class="gameTop"><div><b id="gameTitle">Quest</b><div class="small" id="gameMeta"></div></div><button class="close" onclick="closeGame()">✕</button></div>
     <div class="gameProg"><div id="gameProgress"></div></div>
     <div id="gameBody"></div>
+  </div>
+</div>
+
+
+<div class="modal" id="dashModal">
+  <div class="dashGame">
+    <div class="dashTop">
+      <div><b>🏃 Mountain Dash</b><div class="small" style="color:#bfe3ed">Reach 1,000 meters</div></div>
+      <button class="close" onclick="closeDash()">✕</button>
+    </div>
+    <div class="dashReadout"><span>Distance: <b id="dashDistance">0</b>m</span><span>Trail coins: <b id="dashCollected">0</b></span></div>
+    <canvas id="dashCanvas" width="800" height="360" aria-label="Mountain Dash game"></canvas>
+    <div class="dashControls"><span class="small" style="color:#bfe3ed">Tap or press Space to jump</span><button class="jumpBtn" id="jumpBtn">⬆ JUMP</button></div>
+    <div class="dashMessage" id="dashMessage"></div>
   </div>
 </div>
 
@@ -195,6 +243,8 @@ const shopItems=[
 ];
 
 let state=JSON.parse(localStorage.getItem("mdMathQuestV2")||'{"xp":0,"coins":0,"streak":0,"correct":0,"played":0,"name":"","avatar":"fox","owned":["fox"],"skills":{},"completed":{}}');
+state.dashBest=state.dashBest||0;
+state.dashWins=state.dashWins||0;
 for(const w of worldDefs){if(!state.skills[w.id])state.skills[w.id]={attempts:0,correct:0,difficulty:1};}
 let game={world:null,questions:[],index:0,correct:0,lessonPhase:true,answered:false};
 
@@ -216,6 +266,11 @@ function render(){
  document.getElementById("streak").textContent=state.streak;
  document.getElementById("level").textContent=level();
  document.getElementById("shopCoins").textContent=state.coins;
+ document.getElementById("arcadeCoins").textContent=state.coins;
+ document.getElementById("dashBest").textContent=state.dashBest+"m";
+ document.getElementById("dashWins").textContent=state.dashWins;
+ document.getElementById("dashPlayBtn").disabled=state.coins<50;
+ document.getElementById("dashPlayBtn").textContent=state.coins>=50?"Play Mountain Dash":"Need "+(50-state.coins)+" more coins";
  document.getElementById("avatar").textContent=avatarThing();
  document.getElementById("playerName").textContent=state.name||"Math Adventurer";
  document.getElementById("hello").textContent=state.name?`Ready to climb, ${state.name}?`:"Ready to climb?";
@@ -384,6 +439,78 @@ function finishGame(){
  document.getElementById("gameBody").innerHTML=`<div class="summary"><div class="trophy">${game.correct===5?"🏆":"⛰️"}</div><h2>${title}</h2><p>You got <b>${game.correct} of 5</b> correct.</p><p>${game.correct===5?"Perfect bonus: <b>+30 XP and +10 coins</b>":""}</p><button class="next" onclick="closeGame()">Back to the mountain</button></div>`;
 }
 function closeGame(){document.getElementById("modal").classList.remove("show")}
+
+let dash=null,dashFrame=0,dashLast=0;
+function buyDashRun(){
+ if(state.coins<50){alert(`You need ${50-state.coins} more coins to play Mountain Dash.`);return}
+ state.coins-=50;save();startDash();
+}
+function startDash(){
+ const canvas=document.getElementById("dashCanvas");
+ dash={ctx:canvas.getContext("2d"),w:canvas.width,h:canvas.height,runner:{x:105,y:280,vy:0,w:34,h:42},distance:0,collected:0,speed:5.4,obstacles:[],tokens:[],spawn:80,tokenSpawn:48,running:true,finished:false};
+ document.getElementById("dashModal").classList.add("show");
+ document.getElementById("dashMessage").textContent="";
+ updateDashReadout();dashLast=performance.now();cancelAnimationFrame(dashFrame);dashFrame=requestAnimationFrame(dashLoop);
+}
+function dashJump(){
+ if(!dash||!dash.running)return;
+ if(dash.runner.y>=279){dash.runner.vy=-13.2}
+}
+function closeDash(){
+ if(dash)dash.running=false;cancelAnimationFrame(dashFrame);document.getElementById("dashModal").classList.remove("show");
+}
+function updateDashReadout(){
+ document.getElementById("dashDistance").textContent=Math.min(1000,Math.floor(dash.distance));
+ document.getElementById("dashCollected").textContent=dash.collected;
+}
+function dashLoop(now){
+ if(!dash||!dash.running)return;
+ let step=Math.min(2,(now-dashLast)/16.67||1);dashLast=now;
+ updateDash(step);drawDash();dashFrame=requestAnimationFrame(dashLoop);
+}
+function updateDash(step){
+ const d=dash,r=d.runner;
+ d.distance+=d.speed*.115*step;d.speed=Math.min(9,5.4+d.distance/310);
+ r.vy+=.72*step;r.y+=r.vy*step;if(r.y>280){r.y=280;r.vy=0}
+ d.spawn-=step;if(d.spawn<=0){
+   let tall=Math.random()<.32;d.obstacles.push({x:d.w+20,y:tall?270:292,w:tall?29:38,h:tall?52:30});
+   d.spawn=52+Math.random()*48;
+ }
+ d.tokenSpawn-=step;if(d.tokenSpawn<=0){
+   d.tokens.push({x:d.w+20,y:choice([205,235,266]),r:10,got:false});d.tokenSpawn=38+Math.random()*55;
+ }
+ d.obstacles.forEach(o=>o.x-=d.speed*step);d.tokens.forEach(t=>t.x-=d.speed*step);
+ const hit=d.obstacles.some(o=>r.x<o.x+o.w&&r.x+r.w>o.x&&r.y<o.y+o.h&&r.y+r.h>o.y);
+ d.tokens.forEach(t=>{if(!t.got&&r.x<t.x+t.r&&r.x+r.w>t.x-t.r&&r.y<t.y+t.r&&r.y+r.h>t.y-t.r){t.got=true;d.collected++}});
+ d.obstacles=d.obstacles.filter(o=>o.x>-60);d.tokens=d.tokens.filter(t=>t.x>-30&&!t.got);
+ if(hit)return finishDash(false);
+ if(d.distance>=1000)finishDash(true);
+ updateDashReadout();
+}
+function finishDash(won){
+ const d=dash;d.running=false;d.finished=true;cancelAnimationFrame(dashFrame);
+ const meters=Math.min(1000,Math.floor(d.distance));state.dashBest=Math.max(state.dashBest,meters);
+ let reward=Math.min(30,d.collected*3);
+ if(won){state.dashWins++;reward+=20}
+ state.coins+=reward;save();updateDashReadout();drawDash();
+ document.getElementById("dashMessage").innerHTML=won?`🏆 Summit reached! You earned <b>${reward} coins</b>.`:`💥 Trail ended at ${meters}m. You earned <b>${reward} coins</b>. Close to try again.`;
+}
+function drawDash(){
+ const d=dash,c=d.ctx,w=d.w,h=d.h;c.clearRect(0,0,w,h);
+ let sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,"#78ccec");sky.addColorStop(1,"#eef9ff");c.fillStyle=sky;c.fillRect(0,0,w,h);
+ c.fillStyle="#b8d4d8";c.beginPath();c.moveTo(0,235);for(let x=0;x<=w;x+=80)c.lineTo(x,155+Math.sin((x+d.distance*2)/95)*34);c.lineTo(w,310);c.lineTo(0,310);c.fill();
+ c.fillStyle="#5d9f71";c.beginPath();c.moveTo(0,270);for(let x=0;x<=w;x+=65)c.lineTo(x,215+Math.sin((x+d.distance*4)/70)*28);c.lineTo(w,315);c.lineTo(0,315);c.fill();
+ c.fillStyle="#76583d";c.fillRect(0,322,w,38);c.fillStyle="#83ba62";c.fillRect(0,312,w,12);
+ d.tokens.forEach(t=>{c.fillStyle="#ffc928";c.beginPath();c.arc(t.x,t.y,t.r,0,Math.PI*2);c.fill();c.fillStyle="#fff1a1";c.font="bold 13px sans-serif";c.fillText("★",t.x-6,t.y+5)});
+ d.obstacles.forEach(o=>{c.fillStyle="#685e5a";c.beginPath();c.roundRect(o.x,o.y,o.w,o.h,7);c.fill();c.fillStyle="#91827b";c.fillRect(o.x+7,o.y+7,8,6)});
+ const r=d.runner;c.fillStyle="#6957f5";c.beginPath();c.roundRect(r.x,r.y,r.w,r.h,9);c.fill();c.fillStyle="#fff";c.fillRect(r.x+21,r.y+9,6,6);c.fillStyle="#253047";c.fillRect(r.x+23,r.y+11,3,3);
+ c.fillStyle="#ffb703";c.fillRect(r.x-8,r.y+10,12,7);
+ c.fillStyle="rgba(255,255,255,.8)";c.fillRect(20,20,w-40,10);c.fillStyle="#6957f5";c.fillRect(20,20,(w-40)*Math.min(1,d.distance/1000),10);
+}
+document.getElementById("dashCanvas").addEventListener("pointerdown",e=>{e.preventDefault();dashJump()});
+document.getElementById("jumpBtn").addEventListener("pointerdown",e=>{e.preventDefault();dashJump()});
+document.addEventListener("keydown",e=>{if((e.code==="Space"||e.code==="ArrowUp")&&document.getElementById("dashModal").classList.contains("show")){e.preventDefault();dashJump()}});
+
 render();
 </script>
 </body>
