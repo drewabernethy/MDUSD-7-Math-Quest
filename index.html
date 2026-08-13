@@ -351,6 +351,7 @@ function rank(){let l=level();return l>=10?"Diablo Math Legend":l>=7?"Summit Sol
 function mastery(id){let s=state.skills[id];if(!s||s.attempts===0)return 0;return Math.round(s.correct/s.attempts*100)}
 function worldGrade(w){if(w.level!==undefined)return w.level;if(w.id.endsWith("6"))return 6;return 7}
 function gradeName(g){return g===0?"Kindergarten":g+({1:"st",2:"nd",3:"rd"}[g]||"th")+" Grade"}
+function gradeTabName(g){let name=gradeName(g);return g<(state.startingGrade??7)?`${name} Review`:name}
 function gradeWorlds(g){return worldDefs.filter(w=>worldGrade(w)===g)}
 function gradeComplete(g){
  const units=gradeWorlds(g).filter(w=>w.id!=="boss");
@@ -394,7 +395,7 @@ function saveName(){state.name=document.getElementById("nameInput").value.trim()
 function setGrade(g){if(!gradeUnlocked(g))return;activeGrade=g;renderWorlds()}
 function renderWorlds(){
  const grades=[0,1,2,3,4,5,6,7,8,9,10,11,12];
- document.getElementById("gradeTabs").innerHTML=grades.map(g=>`<button class="${activeGrade===g?'active':''}" ${!gradeUnlocked(g)?'disabled':''} onclick="setGrade(${g})">${!gradeUnlocked(g)?'🔒 ':''}${g===6?'6th Review':gradeName(g)}</button>`).join("");
+ document.getElementById("gradeTabs").innerHTML=grades.map(g=>`<button class="${activeGrade===g?'active':''}" ${!gradeUnlocked(g)?'disabled':''} onclick="setGrade(${g})">${!gradeUnlocked(g)?'🔒 ':''}${gradeTabName(g)}</button>`).join("");
  const complete=gradeComplete(activeGrade),next=activeGrade<12?activeGrade+1:null;
  document.getElementById("gradeStatus").innerHTML=complete?`<span class="gradeComplete">✅ Grade ${activeGrade} complete!</span><span>${next?'Grade '+next+' is unlocked.':'You reached the final summit!'}</span>`:`<span>Reach at least <b>80% mastery</b> in every stop${activeGrade===7?' and finish the Summit Challenge':''}.</span><span>🎓 Early bonus: <b>100 coins</b></span>`;
  const shown=gradeWorlds(activeGrade),mapStops=complete?[...shown,{id:`review${activeGrade}`,icon:"📝",title:"Review",grade:`Grade ${activeGrade} Review`,level:activeGrade,desc:"Mixed practice from every stop in this grade",review:true}]:shown;
