@@ -105,6 +105,7 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 
 .minigameHero{background:linear-gradient(135deg,#103f66,#137d87);color:#fff;overflow:hidden;position:relative}
 .minigameHero:after{content:"🏔️";position:absolute;right:12px;bottom:-48px;font-size:150px;opacity:.16}
+.arcadeGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.stackHero{background:linear-gradient(135deg,#50347d,#bd4c8b)}.stackHero:after{content:"🧱"}
 .minigameHero h3{font-size:27px;margin:0 0 7px}.minigameHero p{max-width:650px;line-height:1.5;color:#e7fbff}
 .costPill{display:inline-block;background:#fff3bf;color:#765500;border-radius:999px;padding:7px 11px;font-weight:900;margin:5px 0 14px}
 .dashStats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
@@ -112,10 +113,11 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 .dashGame{width:min(850px,100%);background:#10283c;color:white;border-radius:24px;padding:18px;box-shadow:0 25px 90px rgba(0,0,0,.3)}
 .dashTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.dashReadout{display:flex;gap:12px;flex-wrap:wrap;font-weight:850;font-size:13px}
 #dashCanvas{width:100%;height:auto;display:block;border-radius:15px;background:#8ed8ef;touch-action:none}
+#stackCanvas{width:100%;height:auto;max-height:68vh;display:block;border-radius:15px;background:#251b45;touch-action:none}
 .dashControls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.jumpBtn{border:0;background:#ffb703;color:#4a3200;border-radius:14px;padding:14px 24px;font-weight:950;min-width:145px;touch-action:none}
 .dashMessage{text-align:center;min-height:24px;margin-top:10px;font-weight:800;color:#dff8ff}
 @media(max-width:520px){.dashStats{grid-template-columns:1fr}.dashControls{flex-direction:column}.jumpBtn{width:100%}}
-@media(max-width:800px){.grid2{grid-template-columns:1fr}.shopGrid,.packGrid{grid-template-columns:1fr 1fr}.characterShelf{grid-template-columns:repeat(3,1fr)}.dashboardGrid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.grid2,.arcadeGrid{grid-template-columns:1fr}.shopGrid,.packGrid{grid-template-columns:1fr 1fr}.characterShelf{grid-template-columns:repeat(3,1fr)}.dashboardGrid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.shopGrid,.packGrid{grid-template-columns:1fr}.characterShelf{grid-template-columns:1fr 1fr}.answers{grid-template-columns:1fr}.unit{grid-template-columns:50px 1fr}.unit button{grid-column:1/-1}.badges{grid-template-columns:1fr 1fr}.wrap{padding:13px}.worlds{padding:22px 10px 30px}.mapStop{width:92%}.world{grid-template-columns:55px 1fr;padding:11px}.mapPin{width:52px;height:52px}.mapPin span{font-size:24px}.trailConnector{height:42px}.worlds:after{font-size:60px}}
 </style>
 </head>
@@ -205,21 +207,27 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
 
 
 <section id="arcade" class="page">
-  <div class="sectionHead"><h3>Summit Arcade</h3><p>Trade math coins for a game break</p></div>
-  <div class="card minigameHero">
+  <div class="sectionHead"><h3>Summit Arcade</h3><p>Spend XP on a game break</p></div>
+  <div class="arcadeGrid"><div class="card minigameHero">
     <h3>🏃 Mountain Dash</h3>
-    <p>Race across Mt. Diablo, jump over rocks, and grab trail coins. Each run costs 50 coins. Reach the summit to earn a bonus based on the coins you collect.</p>
-    <div class="costPill">🪙 50 coins per run</div><br>
+    <p>Race across Mt. Diablo and jump over sharp spikes and roaming monsters. Reach the summit and collect trail coins along the way.</p>
+    <div class="costPill">⚡ 50 XP per run</div><br>
     <button class="cta" id="dashPlayBtn" onclick="buyDashRun()">Play Mountain Dash</button>
     <div class="dashStats">
       <div class="dashStat"><b id="dashBest">0</b><span>Best distance</span></div>
       <div class="dashStat"><b id="dashWins">0</b><span>Summits reached</span></div>
-      <div class="dashStat"><b id="arcadeCoins">0</b><span>Coins available</span></div>
+      <div class="dashStat"><b id="arcadeXP">0</b><span>XP available</span></div>
     </div>
-  </div>
+  </div><div class="card minigameHero stackHero">
+    <h3>🧱 Summit Stacker</h3>
+    <p>Drop each moving block onto your tower. Line it up carefully—the part that hangs over the edge falls away. How high can you build?</p>
+    <div class="costPill">⚡ 35 XP per run</div><br>
+    <button class="cta" id="stackPlayBtn" onclick="buyStackRun()">Play Summit Stacker</button>
+    <div class="dashStats"><div class="dashStat"><b id="stackBest">0</b><span>Best stack</span></div><div class="dashStat"><b id="stackGames">0</b><span>Towers built</span></div><div class="dashStat"><b id="stackXP">0</b><span>XP available</span></div></div>
+  </div></div>
   <div class="card" style="margin-top:14px">
     <b>How to play</b>
-    <p class="small">Tap the screen or the JUMP button on iPhone. On a computer, press Space or ↑. Clear the rocks and collect as many trail coins as you can before reaching the summit.</p>
+    <p class="small"><b>Mountain Dash:</b> tap or press Space/↑ to jump. <b>Summit Stacker:</b> tap or press Space to drop a block. Both games work on phones and computers.</p>
   </div>
 </section>
 
@@ -258,6 +266,16 @@ footer{text-align:center;color:#9aa0ad;font-size:12px;padding:28px 0 10px}
     <canvas id="dashCanvas" width="800" height="360" aria-label="Mountain Dash game"></canvas>
     <div class="dashControls"><span class="small" style="color:#bfe3ed">Tap or press Space to jump</span><button class="jumpBtn" id="jumpBtn">⬆ JUMP</button></div>
     <div class="dashMessage" id="dashMessage"></div>
+  </div>
+</div>
+
+<div class="modal" id="stackModal">
+  <div class="dashGame">
+    <div class="dashTop"><div><b>🧱 Summit Stacker</b><div class="small" style="color:#d9cdf5">Tap when the block is lined up</div></div><button class="close" onclick="closeStack()">✕</button></div>
+    <div class="dashReadout"><span>Height: <b id="stackHeight">0</b> blocks</span><span>Best: <b id="stackModalBest">0</b></span></div>
+    <canvas id="stackCanvas" width="480" height="600" aria-label="Summit Stacker game"></canvas>
+    <div class="dashControls"><span class="small" style="color:#d9cdf5">Tap or press Space to drop</span><button class="jumpBtn" id="dropBtn">⬇ DROP</button></div>
+    <div class="dashMessage" id="stackMessage"></div>
   </div>
 </div>
 
@@ -330,6 +348,7 @@ const sellValues={common:2,uncommon:3,rare:5,epic:8,legendary:12};
 let state=JSON.parse(localStorage.getItem("mdMathQuestV2")||'{"xp":0,"coins":0,"streak":0,"correct":0,"played":0,"name":"","avatar":"fox","owned":["fox"],"skills":{},"completed":{}}');
 state.dashBest=state.dashBest||0;
 state.dashWins=state.dashWins||0;
+state.stackBest=state.stackBest||0;state.stackGames=state.stackGames||0;
 state.characterCounts=state.characterCounts||{fox:1};
 state.selectedCharacter=state.selectedCharacter||state.avatar||"fox";
 state.gradeReviews=state.gradeReviews||{};
@@ -373,11 +392,13 @@ function render(){
  document.getElementById("streak").textContent=state.streak;
  document.getElementById("level").textContent=level();
  document.getElementById("shopCoins").textContent=state.coins;
- document.getElementById("arcadeCoins").textContent=state.coins;
+ document.getElementById("arcadeXP").textContent=state.xp;document.getElementById("stackXP").textContent=state.xp;
  document.getElementById("dashBest").textContent=state.dashBest+"m";
  document.getElementById("dashWins").textContent=state.dashWins;
- document.getElementById("dashPlayBtn").disabled=state.coins<50;
- document.getElementById("dashPlayBtn").textContent=state.coins>=50?"Play Mountain Dash":"Need "+(50-state.coins)+" more coins";
+ document.getElementById("dashPlayBtn").disabled=state.xp<50;
+ document.getElementById("dashPlayBtn").textContent=state.xp>=50?"Play Mountain Dash":"Need "+(50-state.xp)+" more XP";
+ document.getElementById("stackBest").textContent=state.stackBest+" blocks";document.getElementById("stackGames").textContent=state.stackGames;
+ document.getElementById("stackPlayBtn").disabled=state.xp<35;document.getElementById("stackPlayBtn").textContent=state.xp>=35?"Play Summit Stacker":"Need "+(35-state.xp)+" more XP";
  document.getElementById("avatar").textContent=avatarThing();
  document.getElementById("playerName").textContent=state.name||"Math Adventurer";
  document.getElementById("hello").textContent=state.name?`Ready to climb, ${state.name}?`:"Ready to climb?";
@@ -421,7 +442,8 @@ function renderPath(){
  }).join("");
 }
 function renderPackShop(){
- document.getElementById("packGrid").innerHTML=characterPacks.map(p=>`<div class="packCard"><div style="font-size:38px">${p.icon}</div><h4>${p.name}</h4><p>${p.desc}</p><div class="packIcons">${p.preview}</div><span class="packPrice">🪙 ${p.price} coins</span><button ${state.coins<p.price?'disabled':''} onclick="openPack('${p.id}')">${state.coins>=p.price?'Open pack':'Need '+(p.price-state.coins)+' more'}</button></div>`).join("");
+ const mystery=`<div class="packCard"><div style="font-size:38px">🎁</div><h4>Mystery Pack</h4><p>Anything could be inside! Get one surprise character from any pack.</p><div class="packIcons">❓ ✨ ❓</div><span class="packPrice">⚡ 20 XP</span><button ${state.xp<20?'disabled':''} onclick="openMysteryPack()">${state.xp>=20?'Open mystery pack':'Need '+(20-state.xp)+' more XP'}</button></div>`;
+ document.getElementById("packGrid").innerHTML=mystery+characterPacks.map(p=>`<div class="packCard"><div style="font-size:38px">${p.icon}</div><h4>${p.name}</h4><p>${p.desc}</p><div class="packIcons">${p.preview}</div><span class="packPrice">🪙 ${p.price} coins</span><button ${state.coins<p.price?'disabled':''} onclick="openPack('${p.id}')">${state.coins>=p.price?'Open pack':'Need '+(p.price-state.coins)+' more'}</button></div>`).join("");
 }
 function weightedCharacter(packId){
  const pool=characters.filter(c=>c.pack===packId);let bag=[];
@@ -438,6 +460,13 @@ function openPack(packId){
  document.getElementById("gameProgress").style.width="100%";
  document.getElementById("gameBody").innerHTML=`<div class="packReveal"><div class="big">${won.thing}</div><span class="rarity ${won.rarity}">${won.rarity}</span><h2>${won.name}</h2><p>${state.characterCounts[won.id]>1?'Duplicate! You now have '+state.characterCounts[won.id]+'. You can sell extras from Characters.':'New character added to your shelf!'}</p><button onclick="closeGame()">Add to shelf</button></div>`;
  document.getElementById("modal").classList.add("show");
+}
+function openMysteryPack(){
+ if(state.xp<20){alert(`You need ${20-state.xp} more XP.`);return}
+ state.xp-=20;let bag=[];characters.forEach(c=>{for(let i=0;i<rarityWeights[c.rarity];i++)bag.push(c)});const won=choice(bag),pack=characterPacks.find(p=>p.id===won.pack);
+ state.characterCounts[won.id]=(state.characterCounts[won.id]||0)+1;save();
+ document.getElementById("gameTitle").textContent="🎁 Mystery Pack";document.getElementById("gameMeta").textContent=`Surprise from the ${pack.name}!`;document.getElementById("gameProgress").style.width="100%";
+ document.getElementById("gameBody").innerHTML=`<div class="packReveal"><div class="big">${won.thing}</div><span class="rarity ${won.rarity}">${won.rarity}</span><h2>${won.name}</h2><p>${state.characterCounts[won.id]>1?'Duplicate! You now have '+state.characterCounts[won.id]+'. You can sell extras from Characters.':'New character added to your shelf!'}</p><button onclick="closeGame()">Add to shelf</button></div>`;document.getElementById("modal").classList.add("show");
 }
 function renderCharacters(){
  const root=document.getElementById("characterShelves");
@@ -618,7 +647,10 @@ function revealWorkedAnswer(){
 function answer(btn,val){
  if(game.answered)return;game.answered=true;let item=game.questions[game.index],ok=Math.abs(Number(val)-Number(item.ans))<.001;
  let s=state.skills[item.skill];s.attempts++;state.played++;
- if(ok){btn.classList.add("correct");game.correct++;s.correct++;state.correct++;state.streak++;state.xp+=20;state.coins+=5;document.getElementById("feedback").innerHTML=`✅ Correct! ${item.explain} <b>+20 XP, +5 coins</b>`;}
+ if(ok){
+   btn.classList.add("correct");game.correct++;s.correct++;state.correct++;state.streak++;state.xp+=20;state.coins+=5;
+   document.getElementById("feedback").innerHTML=`✅ Correct! ${item.explain} <b>+20 XP, +5 coins</b>`;
+ }
  else{btn.classList.add("wrong");state.streak=0;state.xp+=5;document.getElementById("feedback").innerHTML=`Not quite. The answer is <b>${fmt(item.ans)}</b>. ${item.explain} <b>+5 XP</b>`;document.querySelectorAll(".answer").forEach(x=>{if(Math.abs(Number(x.textContent)-Number(item.ans))<.001)x.classList.add("correct")});}
  adjustDifficulty(item.skill,ok);save();document.getElementById("nextBtn").style.display="block";
 }
@@ -636,8 +668,8 @@ function closeGame(){document.getElementById("modal").classList.remove("show")}
 
 let dash=null,dashFrame=0,dashLast=0;
 function buyDashRun(){
- if(state.coins<50){alert(`You need ${50-state.coins} more coins to play Mountain Dash.`);return}
- state.coins-=50;save();startDash();
+ if(state.xp<50){alert(`You need ${50-state.xp} more XP to play Mountain Dash.`);return}
+ state.xp-=50;save();startDash();
 }
 function startDash(){
  const canvas=document.getElementById("dashCanvas");
@@ -667,7 +699,7 @@ function updateDash(step){
  d.distance+=d.speed*.115*step;d.speed=Math.min(9,5.4+d.distance/310);
  r.vy+=.72*step;r.y+=r.vy*step;if(r.y>274){r.y=274;r.vy=0}
  d.spawn-=step;if(d.spawn<=0){
-   let tall=Math.random()<.32;d.obstacles.push({x:d.w+20,y:tall?270:292,w:tall?29:38,h:tall?52:30});
+   let monster=Math.random()<.42;d.obstacles.push({type:monster?"monster":"spike",x:d.w+20,y:monster?270:286,w:monster?40:42,h:monster?52:36});
    d.spawn=52+Math.random()*48;
  }
  d.tokenSpawn-=step;if(d.tokenSpawn<=0){
@@ -696,13 +728,23 @@ function drawDash(){
  c.fillStyle="#5d9f71";c.beginPath();c.moveTo(0,270);for(let x=0;x<=w;x+=65)c.lineTo(x,215+Math.sin((x+d.distance*4)/70)*28);c.lineTo(w,315);c.lineTo(0,315);c.fill();
  c.fillStyle="#76583d";c.fillRect(0,322,w,38);c.fillStyle="#83ba62";c.fillRect(0,312,w,12);
  d.tokens.forEach(t=>{c.fillStyle="#ffc928";c.beginPath();c.arc(t.x,t.y,t.r,0,Math.PI*2);c.fill();c.fillStyle="#fff1a1";c.font="bold 13px sans-serif";c.fillText("★",t.x-6,t.y+5)});
- d.obstacles.forEach(o=>{c.fillStyle="#685e5a";c.beginPath();c.roundRect(o.x,o.y,o.w,o.h,7);c.fill();c.fillStyle="#91827b";c.fillRect(o.x+7,o.y+7,8,6)});
+ d.obstacles.forEach(o=>{if(o.type==="spike"){c.fillStyle="#d9e3e8";c.beginPath();c.moveTo(o.x,o.y+o.h);c.lineTo(o.x+o.w/2,o.y);c.lineTo(o.x+o.w,o.y+o.h);c.closePath();c.fill();c.strokeStyle="#65747c";c.lineWidth=3;c.stroke()}else{c.fillStyle="#7a3da0";c.beginPath();c.roundRect(o.x,o.y,o.w,o.h,9);c.fill();c.fillStyle="#fff";c.fillRect(o.x+8,o.y+12,8,9);c.fillRect(o.x+25,o.y+12,8,9);c.fillStyle="#251334";c.fillRect(o.x+11,o.y+15,3,4);c.fillRect(o.x+28,o.y+15,3,4);c.fillStyle="#7a3da0";c.fillRect(o.x-6,o.y+18,8,12);c.fillRect(o.x+o.w-2,o.y+18,8,12)}});
  const r=d.runner;c.save();c.font='44px "Apple Color Emoji","Segoe UI Emoji",sans-serif';c.textAlign="center";c.textBaseline="middle";c.fillText(r.character,r.x+r.w/2,r.y+r.h/2+1);c.restore();
  c.fillStyle="rgba(255,255,255,.8)";c.fillRect(20,20,w-40,10);c.fillStyle="#6957f5";c.fillRect(20,20,(w-40)*Math.min(1,d.distance/1000),10);
 }
 document.getElementById("dashCanvas").addEventListener("pointerdown",e=>{e.preventDefault();dashJump()});
 document.getElementById("jumpBtn").addEventListener("pointerdown",e=>{e.preventDefault();dashJump()});
-document.addEventListener("keydown",e=>{if((e.code==="Space"||e.code==="ArrowUp")&&document.getElementById("dashModal").classList.contains("show")){e.preventDefault();dashJump()}});
+let stack=null,stackFrame=0;
+function buyStackRun(){if(state.xp<35){alert(`You need ${35-state.xp} more XP to play Summit Stacker.`);return}state.xp-=35;save();startStack()}
+function startStack(){const canvas=document.getElementById("stackCanvas"),base={x:140,w:200};stack={ctx:canvas.getContext("2d"),w:canvas.width,h:canvas.height,blocks:[base],moving:{x:0,w:200,dir:1},score:0,speed:3.4,running:true};document.getElementById("stackModal").classList.add("show");document.getElementById("stackMessage").textContent="";updateStackReadout();cancelAnimationFrame(stackFrame);stackFrame=requestAnimationFrame(stackLoop)}
+function closeStack(){if(stack)stack.running=false;cancelAnimationFrame(stackFrame);document.getElementById("stackModal").classList.remove("show")}
+function stackLoop(){if(!stack||!stack.running)return;const m=stack.moving;m.x+=stack.speed*m.dir;if(m.x<=0){m.x=0;m.dir=1}if(m.x+m.w>=stack.w){m.x=stack.w-m.w;m.dir=-1}drawStack();stackFrame=requestAnimationFrame(stackLoop)}
+function dropStackBlock(){if(!stack||!stack.running)return;const s=stack,m=s.moving,below=s.blocks[s.blocks.length-1],left=Math.max(m.x,below.x),right=Math.min(m.x+m.w,below.x+below.w),overlap=right-left;if(overlap<=0)return finishStack();s.blocks.push({x:left,w:overlap});s.score++;s.speed=Math.min(8,3.4+s.score*.22);s.moving={x:m.dir>0?0:s.w-overlap,w:overlap,dir:m.dir};updateStackReadout();if(s.score>=50)finishStack(true)}
+function finishStack(maxed=false){const s=stack;s.running=false;cancelAnimationFrame(stackFrame);state.stackGames++;state.stackBest=Math.max(state.stackBest,s.score);save();drawStack();document.getElementById("stackMessage").innerHTML=maxed?`🏆 Incredible! You built the maximum <b>50-block tower!</b>`:`🏗️ Tower finished at <b>${s.score} blocks</b>. Close to build again.`}
+function updateStackReadout(){document.getElementById("stackHeight").textContent=stack.score;document.getElementById("stackModalBest").textContent=Math.max(state.stackBest,stack.score)}
+function drawStack(){const s=stack,c=s.ctx;c.clearRect(0,0,s.w,s.h);let bg=c.createLinearGradient(0,0,0,s.h);bg.addColorStop(0,"#17112e");bg.addColorStop(1,"#58327d");c.fillStyle=bg;c.fillRect(0,0,s.w,s.h);const bh=30,visible=14,start=Math.max(0,s.blocks.length-visible),baseY=s.h-45;c.fillStyle="#eadcff";c.fillRect(0,baseY+30,s.w,15);s.blocks.slice(start).forEach((b,i)=>{let level=start+i,y=baseY-(level-start)*bh;c.fillStyle=`hsl(${(level*37+265)%360} 72% 62%)`;c.fillRect(b.x,y,b.w,bh-3)});if(s.running){let level=s.blocks.length,y=baseY-(level-start)*bh;c.fillStyle=`hsl(${(level*37+265)%360} 78% 67%)`;c.fillRect(s.moving.x,y,s.moving.w,bh-3)}c.fillStyle="rgba(255,255,255,.8)";c.font="bold 18px sans-serif";c.fillText(`${s.score} blocks`,18,30)}
+document.getElementById("stackCanvas").addEventListener("pointerdown",e=>{e.preventDefault();dropStackBlock()});document.getElementById("dropBtn").addEventListener("pointerdown",e=>{e.preventDefault();dropStackBlock()});
+document.addEventListener("keydown",e=>{if(e.code==="Space"&&document.getElementById("stackModal").classList.contains("show")){e.preventDefault();dropStackBlock()}else if((e.code==="Space"||e.code==="ArrowUp")&&document.getElementById("dashModal").classList.contains("show")){e.preventDefault();dashJump()}});
 
 render();
 if(state.startingGrade===undefined||state.startingGrade===null)openGradeChooser();
